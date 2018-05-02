@@ -39,11 +39,9 @@ public interface WordChecker {
     List<String> correctList(final String word, final int limit);
 
     /**
-     * 最佳纠正列表
+     * 所有匹配纠正列表
      * @param word 单词
-     * @return 默认大小的最佳匹配列表
-     * @see #correctList(String, int) 此处 int 使用默认值
-     * @see com.github.houbb.word.checker.constant.WordCheckerContant#DEFAULT_BEST_MATCH_LIMIT
+     * @return 所有匹配纠正列表
      */
     List<String> correctList(final String word);
 

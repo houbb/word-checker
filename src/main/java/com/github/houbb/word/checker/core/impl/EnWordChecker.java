@@ -2,7 +2,6 @@ package com.github.houbb.word.checker.core.impl;
 
 import com.github.houbb.log.integration.core.Log;
 import com.github.houbb.log.integration.core.LogFactory;
-import com.github.houbb.word.checker.constant.WordCheckerContant;
 import com.github.houbb.word.checker.core.WordChecker;
 import com.github.houbb.word.checker.exception.WordCheckRuntimeException;
 import com.github.houbb.word.checker.support.dto.CandidateDto;
@@ -10,11 +9,9 @@ import com.github.houbb.word.checker.support.i18n.I18N;
 import com.github.houbb.word.checker.util.EnWordUtil;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * <p> 英文单词拼写检查 </p>
@@ -135,7 +132,7 @@ public final class EnWordChecker implements WordChecker {
 
     @Override
     public List<String> correctList(String word) {
-        return correctList(word, WordCheckerContant.DEFAULT_BEST_MATCH_LIMIT);
+        return correctList(word, Integer.MAX_VALUE);
     }
 
     //region private methods

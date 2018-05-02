@@ -14,11 +14,4 @@ public final class WordCheckerContant {
 
     private WordCheckerContant(){}
 
-    /**
-     * 默认最佳匹配限制 {@value}
-     * @see com.github.houbb.word.checker.core.WordChecker#correctList(String, int)
-     */
-    public static final int DEFAULT_BEST_MATCH_LIMIT = 5;
-
-
 }

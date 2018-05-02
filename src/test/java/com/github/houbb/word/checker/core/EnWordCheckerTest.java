@@ -50,7 +50,7 @@ public class EnWordCheckerTest {
     public void correctListTest() {
         final String word = "goo";
         List<String> stringList = EnWordChecker.getInstance().correctList(word);
-        Assert.assertEquals(WordCheckerContant.DEFAULT_BEST_MATCH_LIMIT, stringList.size());
+        Assert.assertTrue(stringList.size() > 0);
     }
 
     /**
