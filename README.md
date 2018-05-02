@@ -80,7 +80,7 @@ spelling
 
 ## 测试例子
 
-> 参见 []()
+> 参见 [EnWordCheckerTest.java](src/test/java/com/github/houbb/word/checker/core/EnWordCheckerTest.java)
 
 ```java
 /**
