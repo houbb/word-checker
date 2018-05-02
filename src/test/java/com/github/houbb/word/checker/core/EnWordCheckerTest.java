@@ -1,6 +1,5 @@
 package com.github.houbb.word.checker.core;
 
-import com.github.houbb.word.checker.constant.WordCheckerContant;
 import com.github.houbb.word.checker.core.impl.EnWordChecker;
 
 import org.junit.Assert;
@@ -44,7 +43,7 @@ public class EnWordCheckerTest {
 
     /**
      * 默认纠正匹配列表
-     * 1. 默认结果为5个匹配
+     * 1. 默认返回所有
      */
     @Test
     public void correctListTest() {
@@ -76,6 +75,11 @@ public class EnWordCheckerTest {
         final int limit = 2;
         List<String> stringList = EnWordChecker.getInstance().correctList(word, limit);
         Assert.assertEquals(1, stringList.size());
+    }
+
+    public static void main(String[] args) {
+        final String result = EnWordChecker.getInstance().correct("speling");
+        System.out.println(result);
     }
 
 }

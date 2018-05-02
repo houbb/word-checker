@@ -16,18 +16,18 @@ public interface WordChecker {
 
     /**
      * 是否拼写正确
-     * @param original 原始内容
+     * @param word 原始内容
      * @return {@code true} 正确拼写, {@code false} 错误拼写
      */
-    boolean isCorrect(final String original);
+    boolean isCorrect(final String word);
 
     /**
      * 最佳纠正结果
      * 1. 如果不存在，则返回单词本身
-     * @param original 原始内容
+     * @param word 原始内容
      * @return 最佳匹配结果
      */
-    String correct(final String original);
+    String correct(final String word);
 
     /**
      * 最佳纠正列表

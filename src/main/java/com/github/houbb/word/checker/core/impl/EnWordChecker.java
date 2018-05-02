@@ -53,8 +53,8 @@ public final class EnWordChecker implements WordChecker {
     }
 
     @Override
-    public boolean isCorrect(String original) {
-        return WORD_MAP.containsKey(original);
+    public boolean isCorrect(String word) {
+        return WORD_MAP.containsKey(word);
     }
 
     @Override
