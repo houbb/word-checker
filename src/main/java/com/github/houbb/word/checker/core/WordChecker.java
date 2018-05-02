@@ -1,9 +1,3 @@
-/*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * Copyright (c) 2012-2018. haiyi Inc.
- * word-checker All rights reserved.
- */
-
 package com.github.houbb.word.checker.core;
 
 import java.util.List;
@@ -15,8 +9,8 @@ import java.util.List;
  * <pre> Project: word-checker  </pre>
  *
  * @author houbinbin
- * @version 1.0
- * @since JDK 1.7
+ * @version 0.0.1
+ * @since 0.0.1
  */
 public interface WordChecker {
 
@@ -28,29 +22,29 @@ public interface WordChecker {
     boolean isCorrect(final String original);
 
     /**
-     * 最佳匹配结果
+     * 最佳纠正结果
      * 1. 如果不存在，则返回单词本身
      * @param original 原始内容
      * @return 最佳匹配结果
      */
-    String bestMatch(final String original);
+    String correct(final String original);
 
     /**
-     * 最佳匹配列表
+     * 最佳纠正列表
      * 1. list 的大小永远不会大于 limit，大小返回应该是 [0, limit]
      * @param word 单词
      * @param limit 限制，用于指定返回列表的大小
      * @return 最佳匹配列表
      */
-    List<String> bestMatchList(final String word, final int limit);
+    List<String> correctList(final String word, final int limit);
 
     /**
-     * 最佳匹配列表
+     * 最佳纠正列表
      * @param word 单词
      * @return 默认大小的最佳匹配列表
-     * @see #bestMatchList(String, int) 此处 int 使用默认值
+     * @see #correctList(String, int) 此处 int 使用默认值
      * @see com.github.houbb.word.checker.constant.WordCheckerContant#DEFAULT_BEST_MATCH_LIMIT
      */
-    List<String> bestMatchList(final String word);
+    List<String> correctList(final String word);
 
 }

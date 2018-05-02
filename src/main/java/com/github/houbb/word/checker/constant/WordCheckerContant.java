@@ -1,9 +1,3 @@
-/*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
- * Copyright (c) 2012-2018. haiyi Inc.
- * word-checker All rights reserved.
- */
-
 package com.github.houbb.word.checker.constant;
 
 /**
@@ -13,16 +7,16 @@ package com.github.houbb.word.checker.constant;
  * <pre> Project: word-checker  </pre>
  *
  * @author houbinbin
- * @version 1.0
- * @since JDK 1.7
+ * @version 0.0.1
+ * @since 0.0.1
  */
 public final class WordCheckerContant {
 
     private WordCheckerContant(){}
 
     /**
-     * 默认最佳匹配限制
-     * @see com.github.houbb.word.checker.core.WordChecker#bestMatchList(String, int)
+     * 默认最佳匹配限制 {@value}
+     * @see com.github.houbb.word.checker.core.WordChecker#correctList(String, int)
      */
     public static final int DEFAULT_BEST_MATCH_LIMIT = 5;
 

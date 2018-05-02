@@ -30,6 +30,9 @@
 
 > [ENABLE word list](https://everything2.com/title/ENABLE+word+list)
 
+> [spell-correct](http://norvig.com/spell-correct.html)
+
+> [spellchecking](http://www.dcs.bbk.ac.uk/~roger/spellchecking.html)
 
 # 语言考虑的点
 
@@ -40,3 +43,7 @@
 ## 线程安全
 
 ## 性能
+
+## 用户自定义
+
+用户自行维护一系列自定义的词组/拼写
