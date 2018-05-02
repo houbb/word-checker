@@ -1,25 +1,34 @@
 package com.github.houbb.word.checker.core.impl;
 
+import com.github.houbb.log.integration.core.Log;
+import com.github.houbb.log.integration.core.LogFactory;
 import com.github.houbb.word.checker.constant.WordCheckerContant;
 import com.github.houbb.word.checker.core.WordChecker;
+import com.github.houbb.word.checker.exception.WordCheckRuntimeException;
+import com.github.houbb.word.checker.support.dto.CandidateDto;
+import com.github.houbb.word.checker.support.i18n.I18N;
 import com.github.houbb.word.checker.util.EnWordUtil;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p> 英文单词拼写检查 </p>
  *
  * <pre> Created: 2018-05-02 08:59  </pre>
  * <pre> Project: word-checker  </pre>
+ *
  * @author houbinbin
  * @version 0.0.1
  * @since 0.0.1
  */
 public final class EnWordChecker implements WordChecker {
+
+    private static final Log log = LogFactory.getLog(EnWordChecker.class);
 
     /**
      * 当前类实例
@@ -29,7 +38,7 @@ public final class EnWordChecker implements WordChecker {
     /**
      * 单词表+出现频率
      */
-    private static final Map<String, Integer> WORD_MAP  = EnWordUtil.getWordMap();
+    private static final Map<String, Integer> WORD_MAP = EnWordUtil.getWordMap();
 
     /**
      * 构造器私有
@@ -39,6 +48,7 @@ public final class EnWordChecker implements WordChecker {
 
     /**
      * 获取一个单例
+     *
      * @return 实例
      */
     public static EnWordChecker getInstance() {
@@ -52,32 +62,75 @@ public final class EnWordChecker implements WordChecker {
 
     @Override
     public final String correct(String word) {
-        if (WORD_MAP.containsKey(word)) {
-            return word;
-        }
-        List<String> list = edits(word);
-        HashMap<Integer, String> candidates = new HashMap<>();
-        for (String s : list) {
-            if (WORD_MAP.containsKey(s)) {
-                candidates.put(WORD_MAP.get(s), s);
-            }
-        }
-        if (candidates.size() > 0) {
-            return candidates.get(Collections.max(candidates.keySet()));
-        }
-        for (String s : list) {
-            for (String w : edits(s)) {
-                if (WORD_MAP.containsKey(w)) {
-                    candidates.put(WORD_MAP.get(w), w);
-                }
-            }
-        }
-        return candidates.size() > 0 ? candidates.get(Collections.max(candidates.keySet())) : word;
+        return correctList(word, 1).get(0);
     }
 
     @Override
     public List<String> correctList(String word, int limit) {
-        return null;
+        if (limit < 1) {
+            throw new WordCheckRuntimeException(I18N.get("english_word_correct_limit_out_of_range"));
+        }
+
+        if (WORD_MAP.containsKey(word)) {
+            return Collections.singletonList(word);
+        }
+
+        List<String> options = edits(word);
+        List<CandidateDto> candidateDtos = new LinkedList<>();
+        for (String option : options) {
+            if (WORD_MAP.containsKey(option)) {
+                CandidateDto dto = CandidateDto.builder()
+                        .word(option).count(WORD_MAP.get(option)).build();
+                candidateDtos.add(dto);
+            }
+        }
+        if (candidateDtos.size() > 0) {
+            return getCandidateList(candidateDtos, limit);
+        }
+
+        for (String option : options) {
+            for (String optionEdit : edits(option)) {
+                if (WORD_MAP.containsKey(optionEdit)) {
+                    CandidateDto dto = CandidateDto.builder()
+                            .word(option).count(WORD_MAP.get(option)).build();
+                    candidateDtos.add(dto);
+                }
+            }
+        }
+        if (candidateDtos.size() > 0) {
+            return getCandidateList(candidateDtos, limit);
+        }
+
+        log.warn("Could not find correct spell for word: {}", word);
+        return Collections.singletonList(word);
+    }
+
+    /**
+     * 获取待选列表
+     *
+     * @param candidateDtos 列表
+     * @param limit         限制
+     * @return 截断后的列表
+     */
+    private List<String> getCandidateList(List<CandidateDto> candidateDtos, final int limit) {
+        List<String> result = new LinkedList<>();
+        //1.排序
+        Collections.sort(candidateDtos);
+
+        int toIndex = limit;
+        if (toIndex > candidateDtos.size()) {
+            toIndex = candidateDtos.size();
+        }
+        for (CandidateDto dto : candidateDtos) {
+            if(result.size() >= toIndex) {
+                break;
+            }
+            if(result.contains(dto.getWord())) {
+               continue;
+            }
+            result.add(dto.getWord());
+        }
+        return result;
     }
 
     @Override

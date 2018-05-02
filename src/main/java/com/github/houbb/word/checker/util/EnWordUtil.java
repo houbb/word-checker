@@ -3,7 +3,7 @@ package com.github.houbb.word.checker.util;
 import com.github.houbb.log.integration.core.Log;
 import com.github.houbb.log.integration.core.LogFactory;
 import com.github.houbb.word.checker.core.impl.EnWordChecker;
-import com.github.houbb.word.checker.exception.WordCheckException;
+import com.github.houbb.word.checker.exception.WordCheckRuntimeException;
 import com.github.houbb.word.checker.support.i18n.I18N;
 
 import java.io.BufferedReader;
@@ -46,7 +46,7 @@ public final class EnWordUtil {
             }
         } catch (IOException e) {
             log.error("Load data meet ex: ", e);
-            throw new WordCheckException(I18N.get("english_data_file_load_failed"));
+            throw new WordCheckRuntimeException(I18N.get("english_data_file_load_failed"));
         }
     }
 
