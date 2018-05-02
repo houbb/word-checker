@@ -6,21 +6,7 @@
 [![Build Status](https://www.travis-ci.org/houbb/${artifactId}.svg?branch=master)](https://www.travis-ci.org/houbb/${artifactId}?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/houbb/${artifactId}/badge.svg?branch=master)](https://coveralls.io/github/houbb/${artifactId}?branch=master)
 
-# 预定设计的功能
 
-## 英文
-
-- 拼写错误纠正
-
-- 最佳匹配提供
-
-- 最有前几的匹配提供 
-
-## 中文
-
-- 别字拼写检查
-
-- 最佳匹配提供
 
 # 技术鸣谢
 
@@ -34,16 +20,3 @@
 
 > [spellchecking](http://www.dcs.bbk.ac.uk/~roger/spellchecking.html)
 
-# 语言考虑的点
-
-## 功能实现
-
-最重要的一点
-
-## 线程安全
-
-## 性能
-
-## 用户自定义
-
-用户自行维护一系列自定义的词组/拼写
