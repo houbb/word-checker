@@ -1,12 +1,10 @@
 package com.github.houbb.word.checker.core.impl;
 
-import com.github.houbb.log.integration.core.Log;
-import com.github.houbb.log.integration.core.LogFactory;
 import com.github.houbb.word.checker.core.WordChecker;
 import com.github.houbb.word.checker.exception.WordCheckRuntimeException;
+import com.github.houbb.word.checker.support.data.impl.EnWordData;
 import com.github.houbb.word.checker.support.dto.CandidateDto;
 import com.github.houbb.word.checker.support.i18n.I18N;
-import com.github.houbb.word.checker.util.EnWordUtil;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -25,22 +23,19 @@ import java.util.Map;
  */
 public final class EnWordChecker implements WordChecker {
 
-    private static final Log log = LogFactory.getLog(EnWordChecker.class);
-
-    /**
-     * 当前类实例
-     */
-    private static final EnWordChecker INSTANCE = new EnWordChecker();
-
-    /**
-     * 单词表+出现频率
-     */
-    private static final Map<String, Integer> WORD_MAP = EnWordUtil.getWordMap();
-
     /**
      * 构造器私有
+     * @since 0.0.1
      */
     private EnWordChecker() {
+    }
+
+    /**
+     * 静态内部类，实现单例
+     * @since 0.0.2
+     */
+    private static class EnWordCheckerHolder {
+        private static final EnWordChecker INSTANCE = new EnWordChecker();
     }
 
     /**
@@ -49,12 +44,12 @@ public final class EnWordChecker implements WordChecker {
      * @return 实例
      */
     public static EnWordChecker getInstance() {
-        return INSTANCE;
+        return EnWordCheckerHolder.INSTANCE;
     }
 
     @Override
     public boolean isCorrect(String word) {
-        return WORD_MAP.containsKey(word);
+        return EnWordData.getInstance().data().containsKey(word);
     }
 
     @Override
@@ -68,16 +63,17 @@ public final class EnWordChecker implements WordChecker {
             throw new WordCheckRuntimeException(I18N.get("english_word_correct_limit_out_of_range"));
         }
 
-        if (WORD_MAP.containsKey(word)) {
+        final Map<String, Integer> wordDataMap = EnWordData.getInstance().data();
+        if (wordDataMap.containsKey(word)) {
             return Collections.singletonList(word);
         }
 
         List<String> options = edits(word);
         List<CandidateDto> candidateDtos = new LinkedList<>();
         for (String option : options) {
-            if (WORD_MAP.containsKey(option)) {
+            if (wordDataMap.containsKey(option)) {
                 CandidateDto dto = CandidateDto.builder()
-                        .word(option).count(WORD_MAP.get(option)).build();
+                        .word(option).count(wordDataMap.get(option)).build();
                 candidateDtos.add(dto);
             }
         }
@@ -87,9 +83,9 @@ public final class EnWordChecker implements WordChecker {
 
         for (String option : options) {
             for (String optionEdit : edits(option)) {
-                if (WORD_MAP.containsKey(optionEdit)) {
+                if (wordDataMap.containsKey(optionEdit)) {
                     CandidateDto dto = CandidateDto.builder()
-                            .word(option).count(WORD_MAP.get(option)).build();
+                            .word(option).count(wordDataMap.get(option)).build();
                     candidateDtos.add(dto);
                 }
             }
@@ -98,7 +94,6 @@ public final class EnWordChecker implements WordChecker {
             return getCandidateList(candidateDtos, limit);
         }
 
-        log.warn("Could not find correct spell for word: {}", word);
         return Collections.singletonList(word);
     }
 

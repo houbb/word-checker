@@ -25,7 +25,6 @@
         <project.compiler.level>1.7</project.compiler.level>
 
         <!--============================== INTER ==============================-->
-        <log-integration.version>1.1.1</log-integration.version>
 
         <!--============================== OTHER ==============================-->
         <junit.version>4.12</junit.version>
@@ -36,14 +35,6 @@
     <dependencyManagement>
 
         <dependencies>
-
-            <!--============================== INTER ==============================-->
-            <dependency>
-                <groupId>com.github.houbb</groupId>
-                <artifactId>log-integration</artifactId>
-                <version>${log-integration.version}</version>
-            </dependency>
-
 
             <!--============================== OTHER ==============================-->
             <dependency>
@@ -58,12 +49,6 @@
 
 
     <dependencies>
-        <!--============================== INTER ==============================-->
-        <dependency>
-            <groupId>com.github.houbb</groupId>
-            <artifactId>log-integration</artifactId>
-        </dependency>
-
 
         <!--============================== OTHER ==============================-->
         <dependency>
@@ -92,7 +77,7 @@
 
     <!--============================== ADD For sonatype START ==============================-->
     <name>word-checker</name>
-    <description>word-checker(2018-01-19 20:32:17)</description>
+    <description>The word-checker tool for java.</description>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
