@@ -10,7 +10,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * <p> </p>
+ * <p> I18N 支持 </p>
  *
  * <pre> Created: 2018-05-02 11:24  </pre>
  * <pre> Project: word-checker  </pre>

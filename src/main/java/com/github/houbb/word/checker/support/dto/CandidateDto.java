@@ -1,7 +1,7 @@
 package com.github.houbb.word.checker.support.dto;
 
 /**
- * <p> </p>
+ * <p> 待选对象 </p>
  *
  * <pre> Created: 2018-05-02 13:26  </pre>
  * <pre> Project: word-checker  </pre>
