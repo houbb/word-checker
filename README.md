@@ -2,17 +2,15 @@
 
 本项目用于单词拼写检查。
 
+目前支持英文单词拼写检测，后期将引入中文拼写检测。
+
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.houbb/word-checker/badge.svg)](http://mvnrepository.com/artifact/com.github.houbb/word-checker)
 [![Build Status](https://www.travis-ci.org/houbb/word-checker.svg?branch=master)](https://www.travis-ci.org/houbb/word-checker?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/houbb/word-checker/badge.svg?branch=master)](https://coveralls.io/github/houbb/word-checker?branch=master)
 
 # 特性说明
 
-## 支持 i18n
-
-错误提示支持 i18N
-
-## 支持英文的单词纠错
+### 支持英文的单词纠错
 
 - 可以迅速判断当前单词是否拼写错误
 
@@ -20,58 +18,54 @@
 
 - 可以返回纠正匹配列表，支持指定返回列表的大小
 
-## v0.0.2 新特性
+- 错误提示支持 i18n
 
-- 添加 WordCheckers 引导类
+- 支持大小写、全角半角格式化处理
 
-- 支持自定义单词纠正实现
+### v0.0.3 最新变更
 
-- 支持忽略检查大小写
+- 引入工具类，优化用户使用体验
 
-> [变更日志](CHANGELOG.md)
+- 支持英文忽略全角半角
+
+- 代码结构优化，便于后期拓展
+
+> [变更日志](https://github.com/houbb/word-checker/blob/master/CHANGELOG.md)
 
 # 快速开始
 
 ## JDK 版本
 
-JDK1.7 及其以后
+Jdk 1.7+
 
-## 入门例子
-
-### maven 引入
-
-本项目已经上传到 maven 仓库，直接引入即可
+## maven 引入
 
 ```xml
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 </dependency>
 ```
 
-### 测试案例
+### gradle 引入
 
-- Main.java
+```
+compile group: 'com.github.houbb', name: 'word-checker', version: '0.0.3'
+```
+
+## 测试案例
+
+会根据输入，自动返回最佳纠正结果。
 
 ```java
-public static void main(String[] args) {
-    final String result = EnWordChecker.getInstance().correct("speling");
-    System.out.println(result);
-}
+final String speling = "speling";
+Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
 ```
 
-结果为 
+# 核心 api 介绍
 
-```
-spelling
-```
-
-# 英文拼写纠错功能介绍
-
-> 备注 
-
-所有方法为 `EnWordChecker` 类下。
+核心 api 在 `EnWordCheckers` 工具类下。
 
 | 功能 | 方法 | 参数 | 返回值 | 备注 |
 |:----|:----|:----|:---|:----|
@@ -82,71 +76,80 @@ spelling
 
 ## 测试例子
 
-> 参见 [EnWordCheckerTest.java](src/test/java/com/github/houbb/word/checker/core/EnWordCheckerTest.java)
+> 参见 [EnWordCheckerTest.java](https://github.com/houbb/word-checker/tree/master/src/test/java/com/github/houbb/word/checker/util/EnWordCheckersTest)
+
+## 是否拼写正确
 
 ```java
-/**
- * 是否拼写正确
- */
-@Test
-public void isCorrectTest() {
-    final String hello = "hello";
-    final String speling = "speling";
-    Assert.assertTrue(EnWordChecker.getInstance().isCorrect(hello));
-    Assert.assertFalse(EnWordChecker.getInstance().isCorrect(speling));
-}
+final String hello = "hello";
+final String speling = "speling";
+Assert.assertTrue(EnWordCheckers.isCorrect(hello));
+Assert.assertFalse(EnWordCheckers.isCorrect(speling));
 ```
+
+## 返回最佳匹配结果
 
 ```java
-/**
-* 返回最佳匹配结果
-*/
-@Test
-public void correctTest() {
-    final String hello = "hello";
-    final String speling = "speling";
-    Assert.assertEquals("hello", EnWordChecker.getInstance().correct(hello));
-    Assert.assertEquals("spelling", EnWordChecker.getInstance().correct(speling));
-}
+final String hello = "hello";
+final String speling = "speling";
+Assert.assertEquals("hello", EnWordCheckers.correct(hello));
+Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
 ```
+
+## 默认纠正匹配列表
 
 ```java
-/**
- * 默认纠正匹配列表
- * 1. 默认返回所有
- */
-@Test
-public void correctListTest() {
-    final String word = "goo";
-    List<String> stringList = EnWordChecker.getInstance().correctList(word);
-    Assert.assertTrue(stringList.size() > 0);
-}
+final String word = "goo";
+List<String> stringList = EnWordCheckers.correctList(word);
+Assert.assertEquals("[go, good, too, god, got, oo, goot, foo]", stringList.toString());
 ```
+
+## 指定纠正匹配列表大小
 
 ```java
-/**
- * 默认纠正匹配列表
- * 1. 默认返回所有
- */
-@Test
-public void correctListTest() {
-    final String word = "goo";
-    List<String> stringList = EnWordChecker.getInstance().correctList(word);
-    Assert.assertTrue(stringList.size() > 0);
-}
+final String word = "goo";
+final int limit = 2;
+List<String> stringList = EnWordCheckers.correctList(word, limit);
+Assert.assertEquals("[go, good]", stringList.toString());
 ```
 
-# 深入学习
+# 格式化处理
 
-[02-单词检查引导类](doc/user/02-单词检查引导类.md)
+有时候用户的输入是各式各样的，本工具支持对于格式化的处理。
 
-[03-自定义单词检查实现](doc/user/03-自定义单词检查实现.md)
+## 大小写
+
+大写会被统一格式化为小写。
+
+```java
+final String word = "stRing";
+
+Assert.assertTrue(EnWordCheckers.isCorrect(word));
+```
+
+## 全角半角
+
+全角会被统一格式化为半角。
+
+```java
+final String word = "stｒing";
+
+Assert.assertTrue(EnWordCheckers.isCorrect(word));
+```
+
+# 后期 Road-Map
+
+- 支持用户自定义词库
+
+- 支持英文分词，处理整个英文句子
+
+- 支持中文拼写检测
 
 # 技术鸣谢
 
-[Words](https://github.com/atebits/Words) 提供的原始**英语单词**数据。
+[Words](https://github.com/atebits/Words) 提供的原始英语单词数据。
 
-# 文档参考
+## 文档参考
 
 > [ENABLE word list](https://everything2.com/title/ENABLE+word+list)
 

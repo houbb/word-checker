@@ -4,7 +4,7 @@
 
     <groupId>com.github.houbb</groupId>
     <artifactId>word-checker</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.3</version>
 
     <properties>
         <!--============================== All Plugins START ==============================-->
@@ -25,6 +25,7 @@
         <project.compiler.level>1.7</project.compiler.level>
 
         <!--============================== INTER ==============================-->
+        <heaven.version>0.1.76</heaven.version>
 
         <!--============================== OTHER ==============================-->
         <junit.version>4.12</junit.version>
@@ -36,11 +37,19 @@
 
         <dependencies>
 
+            <!--============================== INTER ==============================-->
+            <dependency>
+                <groupId>com.github.houbb</groupId>
+                <artifactId>heaven</artifactId>
+                <version>${heaven.version}</version>
+            </dependency>
+
             <!--============================== OTHER ==============================-->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+                <optional>true</optional>
                 <scope>test</scope>
             </dependency>
 
@@ -49,6 +58,11 @@
 
 
     <dependencies>
+        <!--============================== INTER ==============================-->
+        <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>heaven</artifactId>
+        </dependency>
 
         <!--============================== OTHER ==============================-->
         <dependency>

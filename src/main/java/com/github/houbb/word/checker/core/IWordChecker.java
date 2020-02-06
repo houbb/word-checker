@@ -9,40 +9,51 @@ import java.util.List;
  * <pre> Project: word-checker  </pre>
  *
  * @author houbinbin
- * @version 0.0.1
- * @since 0.0.1
+ * @since 0.0.3
  */
-public interface WordChecker {
+public interface IWordChecker {
 
     /**
      * 是否拼写正确
      * @param word 原始内容
+     * @param context 上下文
      * @return {@code true} 正确拼写, {@code false} 错误拼写
+     * @since 0.0.3
      */
-    boolean isCorrect(final String word);
+    boolean isCorrect(final String word,
+                      final IWordCheckerContext context);
 
     /**
      * 最佳纠正结果
      * 1. 如果不存在，则返回单词本身
      * @param word 原始内容
+     * @param context 上下文
      * @return 最佳匹配结果
+     * @since 0.0.3
      */
-    String correct(final String word);
+    String correct(final String word,
+                   final IWordCheckerContext context);
 
     /**
      * 最佳纠正列表
      * 1. list 的大小永远不会大于 limit，大小返回应该是 [0, limit]
      * @param word 单词
      * @param limit 限制，用于指定返回列表的大小
+     * @param context 上下文
      * @return 最佳匹配列表
+     * @since 0.0.3
      */
-    List<String> correctList(final String word, final int limit);
+    List<String> correctList(final String word, final int limit,
+                             final IWordCheckerContext context);
 
     /**
      * 所有匹配纠正列表
      * @param word 单词
+     * @param context 上下文
      * @return 所有匹配纠正列表
+     * @since 0.0.3
      */
-    List<String> correctList(final String word);
+    List<String> correctList(final String word,
+                             final IWordCheckerContext context);
 
 }

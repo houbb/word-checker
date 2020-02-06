@@ -7,7 +7,7 @@ import java.util.Map;
  * @author binbin.hou
  * @since 0.0.2
  */
-public interface WordData {
+public interface IWordData {
 
     /**
      * 获取对应的数据信息

@@ -1,6 +1,4 @@
-package com.github.houbb.word.checker.core;
-
-import com.github.houbb.word.checker.core.impl.EnWordChecker;
+package com.github.houbb.word.checker.util;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,10 +12,9 @@ import java.util.List;
  * <pre> Project: word-checker  </pre>
  *
  * @author houbinbin
- * @version 0.0.1
- * @since 0.0.1
+ * @since 0.0.3
  */
-public class EnWordCheckerTest {
+public class EnWordCheckersTest {
 
     /**
      * 是否拼写正确
@@ -26,8 +23,8 @@ public class EnWordCheckerTest {
     public void isCorrectTest() {
         final String hello = "hello";
         final String speling = "speling";
-        Assert.assertTrue(EnWordChecker.getInstance().isCorrect(hello));
-        Assert.assertFalse(EnWordChecker.getInstance().isCorrect(speling));
+        Assert.assertTrue(EnWordCheckers.isCorrect(hello));
+        Assert.assertFalse(EnWordCheckers.isCorrect(speling));
     }
 
     /**
@@ -37,8 +34,8 @@ public class EnWordCheckerTest {
     public void correctTest() {
         final String hello = "hello";
         final String speling = "speling";
-        Assert.assertEquals("hello", EnWordChecker.getInstance().correct(hello));
-        Assert.assertEquals("spelling", EnWordChecker.getInstance().correct(speling));
+        Assert.assertEquals("hello", EnWordCheckers.correct(hello));
+        Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
     }
 
     /**
@@ -48,8 +45,8 @@ public class EnWordCheckerTest {
     @Test
     public void correctListTest() {
         final String word = "goo";
-        List<String> stringList = EnWordChecker.getInstance().correctList(word);
-        Assert.assertTrue(stringList.size() > 0);
+        List<String> stringList = EnWordCheckers.correctList(word);
+        Assert.assertEquals("[go, good, too, god, got, oo, goot, foo]", stringList.toString());
     }
 
     /**
@@ -60,8 +57,8 @@ public class EnWordCheckerTest {
     public void correctListWithLimitTest() {
         final String word = "goo";
         final int limit = 2;
-        List<String> stringList = EnWordChecker.getInstance().correctList(word, limit);
-        Assert.assertEquals(limit, stringList.size());
+        List<String> stringList = EnWordCheckers.correctList(word, limit);
+        Assert.assertEquals("[go, good]", stringList.toString());
     }
 
     /**
@@ -73,8 +70,30 @@ public class EnWordCheckerTest {
     public void correctListWithLimit2Test() {
         final String word = "speling";
         final int limit = 2;
-        List<String> stringList = EnWordChecker.getInstance().correctList(word, limit);
+        List<String> stringList = EnWordCheckers.correctList(word, limit);
         Assert.assertEquals(1, stringList.size());
+    }
+
+    /**
+     * 格式化大小写测试
+     * @since 0.0.3
+     */
+    @Test
+    public void isCorrectFormatCaseTest() {
+        final String word = "stRing";
+
+        Assert.assertTrue(EnWordCheckers.isCorrect(word));
+    }
+
+    /**
+     * 格式化宽度测试
+     * @since 0.0.3
+     */
+    @Test
+    public void isCorrectFormatWidthTest() {
+        final String word = "stｒing";
+
+        Assert.assertTrue(EnWordCheckers.isCorrect(word));
     }
 
 }

@@ -1,5 +1,7 @@
 package com.github.houbb.word.checker.support.dto;
 
+import java.util.Objects;
+
 /**
  * <p> 待选对象 </p>
  *
@@ -37,13 +39,19 @@ public class CandidateDto implements Comparable<CandidateDto> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CandidateDto)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CandidateDto)) {
+            return false;
+        }
 
         CandidateDto that = (CandidateDto) o;
 
-        if (count != that.count) return false;
-        return word != null ? word.equals(that.word) : that.word == null;
+        if (count != that.count) {
+            return false;
+        }
+        return Objects.equals(word, that.word);
     }
 
     @Override
@@ -55,11 +63,9 @@ public class CandidateDto implements Comparable<CandidateDto> {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("CandidateDto{");
-        sb.append("word='").append(word).append('\'');
-        sb.append(", count=").append(count);
-        sb.append('}');
-        return sb.toString();
+        return "CandidateDto{" + "word='" + word + '\'' +
+                ", count=" + count +
+                '}';
     }
 
     @Override
