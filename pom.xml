@@ -4,7 +4,7 @@
 
     <groupId>com.github.houbb</groupId>
     <artifactId>word-checker</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <properties>
         <!--============================== All Plugins START ==============================-->
