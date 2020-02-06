@@ -24,13 +24,9 @@
 
 - 支持大小写、全角半角格式化处理
 
-### v0.0.3 最新变更
+### v0.0.4 最新变更
 
-- 引入工具类，优化用户使用体验
-
-- 支持英文忽略全角半角
-
-- 代码结构优化，便于后期拓展
+- 支持自定义词库
 
 > [变更日志](https://github.com/houbb/word-checker/blob/master/CHANGELOG.md)
 
@@ -139,9 +135,40 @@ final String word = "stｒing";
 Assert.assertTrue(EnWordCheckers.isCorrect(word));
 ```
 
-# 后期 Road-Map
+# 自定义词库
 
-- 支持用户自定义词库
+## 自定义词库
+
+你可以在项目资源目录创建文件 `resources/data/define_word_checker_en.txt`
+
+内容如下：
+
+```
+my-long-long-define-word,2
+my-long-long-define-word-two
+```
+
+不同的词独立一行。
+
+每一行第一列代表单词，第二列代表出现的次数，二者用逗号 `,` 隔开。
+
+次数越大，在纠正的时候返回优先级就越高。
+
+用户自定义的词库优先级高于系统内置词库。
+
+## 测试代码
+
+我们在指定了对应的单词之后，拼写检测的时候就会生效。
+
+```java
+final String word = "my-long-long-define-word";
+final String word2 = "my-long-long-define-word-two";
+
+Assert.assertTrue(EnWordCheckers.isCorrect(word));
+Assert.assertTrue(EnWordCheckers.isCorrect(word2));
+```
+
+# 后期 Road-Map
 
 - 支持英文分词，处理整个英文句子
 

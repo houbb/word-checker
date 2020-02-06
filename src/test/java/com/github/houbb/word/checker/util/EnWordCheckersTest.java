@@ -96,4 +96,16 @@ public class EnWordCheckersTest {
         Assert.assertTrue(EnWordCheckers.isCorrect(word));
     }
 
+    /**
+     * 自定义词库
+     * @since 0.0.4
+     */
+    @Test
+    public void defineWordDictTest() {
+        final String word = "my-long-long-define-word";
+        final String word2 = "my-long-long-define-word-two";
+        Assert.assertTrue(EnWordCheckers.isCorrect(word));
+        Assert.assertTrue(EnWordCheckers.isCorrect(word2));
+    }
+
 }
