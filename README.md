@@ -76,7 +76,7 @@ Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
 
 ## 测试例子
 
-> 参见 [EnWordCheckerTest.java](https://github.com/houbb/word-checker/tree/master/src/test/java/com/github/houbb/word/checker/util/EnWordCheckersTest)
+> 参见 [EnWordCheckerTest.java](https://github.com/houbb/word-checker/tree/master/src/test/java/com/github/houbb/word/checker/util/EnWordCheckersTest.java)
 
 ## 是否拼写正确
 
