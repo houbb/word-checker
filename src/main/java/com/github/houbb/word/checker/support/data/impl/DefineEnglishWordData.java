@@ -12,22 +12,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 系统内置-英文单词数据
+ * 自定义-英文单词数据
  * @author binbin.hou
- * @since 0.0.2
+ * @since 0.0.4
  */
-class SystemEnglishWordData implements IWordData {
+class DefineEnglishWordData implements IWordData {
 
-    private SystemEnglishWordData(){}
+    private DefineEnglishWordData(){}
 
     /**
      * 静态内部类实现单例
      */
     private static class EnWordDataHolder {
-        private static final SystemEnglishWordData INSTANCE = new SystemEnglishWordData();
+        private static final DefineEnglishWordData INSTANCE = new DefineEnglishWordData();
     }
 
-    public static SystemEnglishWordData getInstance() {
+    public static DefineEnglishWordData getInstance() {
         return EnWordDataHolder.INSTANCE;
     }
 
@@ -39,7 +39,7 @@ class SystemEnglishWordData implements IWordData {
 
     static {
         try {
-            List<String> allLines = StreamUtil.readAllLines(WordCheckerConst.SYSTEM_EN_DICT_PATH);
+            List<String> allLines = StreamUtil.readAllLines(WordCheckerConst.DEFINE_EN_DICT_PATH);
             InnerWordDataUtil.initWordMap(allLines, wordMap);
         } catch (Exception e) {
             throw new WordCheckRuntimeException(I18N.get("english_data_file_load_failed"));

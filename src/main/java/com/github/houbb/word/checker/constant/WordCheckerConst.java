@@ -19,4 +19,16 @@ public final class WordCheckerConst {
      */
     public static final String SYSTEM_EN_DICT_PATH = "/data/word_checker_en.txt";
 
+    /**
+     * 用户自定义英文字典路径
+     * @since 0.0.4
+     */
+    public static final String DEFINE_EN_DICT_PATH = "/data/define_word_checker_en.txt";
+
+    /**
+     * 默认英文单词出现的次数
+     * @since 0.0.4
+     */
+    public static final int DEFAULT_EN_WORD_COUNT = 1;
+
 }

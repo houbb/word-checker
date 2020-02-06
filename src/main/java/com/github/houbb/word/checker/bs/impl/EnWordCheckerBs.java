@@ -33,7 +33,7 @@ public final class EnWordCheckerBs implements IWordCheckerBs {
      * 单词数据信息
      * @since 0.0.3
      */
-    private IWordData wordData = WordDatas.systemEnglish();
+    private IWordData wordData = WordDatas.mixedEnglish();
 
     /**
      * 单词格式化

@@ -1,33 +1,32 @@
 package com.github.houbb.word.checker.support.data.impl;
 
-import com.github.houbb.heaven.util.io.StreamUtil;
-import com.github.houbb.heaven.util.lang.StringUtil;
-import com.github.houbb.word.checker.constant.WordCheckerConst;
 import com.github.houbb.word.checker.exception.WordCheckRuntimeException;
 import com.github.houbb.word.checker.support.data.IWordData;
 import com.github.houbb.word.checker.support.i18n.I18N;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * 系统内置-英文单词数据
+ * 混合模式-英文单词数据
+ * （1）系统内置
+ * （2）用户自定义
+ *
  * @author binbin.hou
- * @since 0.0.2
+ * @since 0.0.4
  */
-class SystemEnglishWordData implements IWordData {
+class MixedEnglishWordData implements IWordData {
 
-    private SystemEnglishWordData(){}
+    private MixedEnglishWordData(){}
 
     /**
      * 静态内部类实现单例
      */
     private static class EnWordDataHolder {
-        private static final SystemEnglishWordData INSTANCE = new SystemEnglishWordData();
+        private static final MixedEnglishWordData INSTANCE = new MixedEnglishWordData();
     }
 
-    public static SystemEnglishWordData getInstance() {
+    public static MixedEnglishWordData getInstance() {
         return EnWordDataHolder.INSTANCE;
     }
 
@@ -39,8 +38,11 @@ class SystemEnglishWordData implements IWordData {
 
     static {
         try {
-            List<String> allLines = StreamUtil.readAllLines(WordCheckerConst.SYSTEM_EN_DICT_PATH);
-            InnerWordDataUtil.initWordMap(allLines, wordMap);
+            Map<String, Integer> systemWordMap = WordDatas.systemEnglish().data();
+            Map<String, Integer> defineWordMap = WordDatas.defineEnglish().data();
+
+            wordMap.putAll(systemWordMap);
+            wordMap.putAll(defineWordMap);
         } catch (Exception e) {
             throw new WordCheckRuntimeException(I18N.get("english_data_file_load_failed"));
         }

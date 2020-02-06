@@ -23,4 +23,22 @@ public final class WordDatas {
         return SystemEnglishWordData.getInstance();
     }
 
+    /**
+     * 自定义英语字典
+     * @return 字典
+     * @since 0.0.4
+     */
+    public static IWordData defineEnglish() {
+        return DefineEnglishWordData.getInstance();
+    }
+
+    /**
+     * 混合模式加载英语字典
+     * @return 字典
+     * @since 0.0.4
+     */
+    public static IWordData mixedEnglish() {
+        return MixedEnglishWordData.getInstance();
+    }
+
 }

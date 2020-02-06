@@ -7,6 +7,8 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.houbb/word-checker/badge.svg)](http://mvnrepository.com/artifact/com.github.houbb/word-checker)
 [![Build Status](https://www.travis-ci.org/houbb/word-checker.svg?branch=master)](https://www.travis-ci.org/houbb/word-checker?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/houbb/word-checker/badge.svg?branch=master)](https://coveralls.io/github/houbb/word-checker?branch=master)
+[![](https://img.shields.io/badge/license-Apache2-FF0080.svg)](https://github.com/houbb/word-checker/blob/master/LICENSE.txt)
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/houbb/word-checker)
 
 # 特性说明
 
@@ -44,14 +46,14 @@ Jdk 1.7+
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
 </dependency>
 ```
 
 ### gradle 引入
 
 ```
-compile group: 'com.github.houbb', name: 'word-checker', version: '0.0.3'
+compile group: 'com.github.houbb', name: 'word-checker', version: '0.0.4'
 ```
 
 ## 测试案例
