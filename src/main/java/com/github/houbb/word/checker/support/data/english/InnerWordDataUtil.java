@@ -1,4 +1,4 @@
-package com.github.houbb.word.checker.support.data.impl;
+package com.github.houbb.word.checker.support.data.english;
 
 import com.github.houbb.heaven.util.lang.StringUtil;
 import com.github.houbb.heaven.util.util.CollectionUtil;

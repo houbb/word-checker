@@ -1,10 +1,9 @@
-package com.github.houbb.word.checker.support.data.impl;
+package com.github.houbb.word.checker.support.data.english;
 
 import com.github.houbb.heaven.util.io.StreamUtil;
-import com.github.houbb.heaven.util.lang.StringUtil;
 import com.github.houbb.word.checker.constant.WordCheckerConst;
 import com.github.houbb.word.checker.exception.WordCheckRuntimeException;
-import com.github.houbb.word.checker.support.data.IWordData;
+import com.github.houbb.word.checker.support.data.AbstractWordData;
 import com.github.houbb.word.checker.support.i18n.I18N;
 
 import java.util.HashMap;
@@ -12,22 +11,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 自定义-英文单词数据
+ * 系统内置-英文单词数据
  * @author binbin.hou
- * @since 0.0.4
+ * @since 0.0.2
  */
-class DefineEnglishWordData implements IWordData {
+class SystemEnglishWordData extends AbstractWordData {
 
-    private DefineEnglishWordData(){}
+    private SystemEnglishWordData(){}
 
     /**
      * 静态内部类实现单例
      */
     private static class EnWordDataHolder {
-        private static final DefineEnglishWordData INSTANCE = new DefineEnglishWordData();
+        private static final SystemEnglishWordData INSTANCE = new SystemEnglishWordData();
     }
 
-    public static DefineEnglishWordData getInstance() {
+    public static SystemEnglishWordData getInstance() {
         return EnWordDataHolder.INSTANCE;
     }
 
@@ -39,7 +38,7 @@ class DefineEnglishWordData implements IWordData {
 
     static {
         try {
-            List<String> allLines = StreamUtil.readAllLines(WordCheckerConst.DEFINE_EN_DICT_PATH);
+            List<String> allLines = StreamUtil.readAllLines(WordCheckerConst.SYSTEM_EN_DICT_PATH);
             InnerWordDataUtil.initWordMap(allLines, wordMap);
         } catch (Exception e) {
             throw new WordCheckRuntimeException(I18N.get("english_data_file_load_failed"));
@@ -47,7 +46,7 @@ class DefineEnglishWordData implements IWordData {
     }
 
     @Override
-    public Map<String, Integer> data() {
+    public Map<String, Integer> freqData() {
         return wordMap;
     }
 

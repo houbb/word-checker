@@ -1,5 +1,6 @@
 package com.github.houbb.word.checker.support.data;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,7 +15,15 @@ public interface IWordData {
      * key: 单词表
      * value: 出现频率
      * @return Map 集合
+     * @since 0.0.3
      */
-    Map<String, Integer> data();
+    Map<String, Integer> freqData();
+
+    /**
+     * 修正数据列表
+     * @return map
+     * @since 0.0.5
+     */
+    Map<String, List<String>> correctData();
 
 }

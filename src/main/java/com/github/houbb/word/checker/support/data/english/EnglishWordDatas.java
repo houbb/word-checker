@@ -1,4 +1,4 @@
-package com.github.houbb.word.checker.support.data.impl;
+package com.github.houbb.word.checker.support.data.english;
 
 import com.github.houbb.word.checker.support.data.IWordData;
 
@@ -10,16 +10,16 @@ import com.github.houbb.word.checker.support.data.IWordData;
  * @author Administrator
  * @since 0.0.3
  */
-public final class WordDatas {
+public final class EnglishWordDatas {
 
-    private WordDatas(){}
+    private EnglishWordDatas(){}
 
     /**
      * 系统内置英语字典
      * @return 字典
      * @since 0.0.3
      */
-    public static IWordData systemEnglish() {
+    public static IWordData system() {
         return SystemEnglishWordData.getInstance();
     }
 
@@ -28,7 +28,7 @@ public final class WordDatas {
      * @return 字典
      * @since 0.0.4
      */
-    public static IWordData defineEnglish() {
+    public static IWordData define() {
         return DefineEnglishWordData.getInstance();
     }
 
@@ -37,7 +37,7 @@ public final class WordDatas {
      * @return 字典
      * @since 0.0.4
      */
-    public static IWordData mixedEnglish() {
+    public static IWordData mixed() {
         return MixedEnglishWordData.getInstance();
     }
 

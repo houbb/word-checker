@@ -52,7 +52,7 @@ public final class EnWordChecker implements IWordChecker {
     @Override
     public boolean isCorrect(String word, final IWordCheckerContext context) {
         String formatWord = formatWord(word, context.wordFormat());
-        return context.wordData().data().containsKey(formatWord);
+        return context.wordData().freqData().containsKey(formatWord);
     }
 
     @Override
@@ -68,7 +68,7 @@ public final class EnWordChecker implements IWordChecker {
 
         String formatWord = formatWord(word, context.wordFormat());
 
-        final Map<String, Integer> wordDataMap = context.wordData().data();
+        final Map<String, Integer> wordDataMap = context.wordData().freqData();
         if (wordDataMap.containsKey(formatWord)) {
             // 返回原始信息
             return Collections.singletonList(word);

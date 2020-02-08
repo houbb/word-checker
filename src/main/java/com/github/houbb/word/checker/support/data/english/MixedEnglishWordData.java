@@ -1,7 +1,7 @@
-package com.github.houbb.word.checker.support.data.impl;
+package com.github.houbb.word.checker.support.data.english;
 
 import com.github.houbb.word.checker.exception.WordCheckRuntimeException;
-import com.github.houbb.word.checker.support.data.IWordData;
+import com.github.houbb.word.checker.support.data.AbstractWordData;
 import com.github.houbb.word.checker.support.i18n.I18N;
 
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @author binbin.hou
  * @since 0.0.4
  */
-class MixedEnglishWordData implements IWordData {
+class MixedEnglishWordData extends AbstractWordData {
 
     private MixedEnglishWordData(){}
 
@@ -38,8 +38,8 @@ class MixedEnglishWordData implements IWordData {
 
     static {
         try {
-            Map<String, Integer> systemWordMap = WordDatas.systemEnglish().data();
-            Map<String, Integer> defineWordMap = WordDatas.defineEnglish().data();
+            Map<String, Integer> systemWordMap = EnglishWordDatas.system().freqData();
+            Map<String, Integer> defineWordMap = EnglishWordDatas.define().freqData();
 
             wordMap.putAll(systemWordMap);
             wordMap.putAll(defineWordMap);
@@ -49,7 +49,7 @@ class MixedEnglishWordData implements IWordData {
     }
 
     @Override
-    public Map<String, Integer> data() {
+    public Map<String, Integer> freqData() {
         return wordMap;
     }
 
