@@ -51,7 +51,7 @@ Jdk 1.7+
 ### gradle 引入
 
 ```
-compile group: 'com.github.houbb', name: 'word-checker', version: '0.0.4'
+compile group: 'com.github.houbb', name: 'word-checker', version: '0.0.5'
 ```
 
 ## 测试案例
