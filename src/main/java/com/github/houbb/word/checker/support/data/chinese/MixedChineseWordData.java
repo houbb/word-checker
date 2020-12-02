@@ -43,7 +43,7 @@ class MixedChineseWordData extends AbstractWordData {
     static {
         try {
             List<String> lines = StreamUtil.readAllLines(WordCheckerConst.SYSTEM_ZH_DICT_PATH);
-            List<String> defineLines = StreamUtil.readAllLines(WordCheckerConst.DEFINE_EN_DICT_PATH);
+            List<String> defineLines = StreamUtil.readAllLines(WordCheckerConst.DEFINE_ZH_DICT_PATH);
             lines.addAll(defineLines);
 
             WORD_MAP = Guavas.newHashMap(lines.size());
