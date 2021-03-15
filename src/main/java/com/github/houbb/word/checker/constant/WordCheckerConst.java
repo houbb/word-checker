@@ -33,7 +33,7 @@ public final class WordCheckerConst {
 
     /**
      * 用户自定义中文字典路径
-     * @since 0.05
+     * @since 0.0.5
      */
     public static final String DEFINE_ZH_DICT_PATH = "/data/define_word_checker_zh.txt";
 

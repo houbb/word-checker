@@ -1,7 +1,5 @@
 package com.github.houbb.word.checker.util;
 
-import com.github.houbb.heaven.support.instance.impl.Instances;
-import com.github.houbb.word.checker.bs.impl.EnWordCheckerBs;
 import com.github.houbb.word.checker.bs.impl.ZhWordCheckerBs;
 
 import java.util.List;

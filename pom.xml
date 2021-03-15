@@ -4,7 +4,7 @@
 
     <groupId>com.github.houbb</groupId>
     <artifactId>word-checker</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
 
     <properties>
         <!--============================== All Plugins START ==============================-->
@@ -25,7 +25,7 @@
         <project.compiler.level>1.7</project.compiler.level>
 
         <!--============================== INTER ==============================-->
-        <heaven.version>0.1.76</heaven.version>
+        <heaven.version>0.1.127</heaven.version>
         <!--inter-->
         <nlp-common.version>0.0.2</nlp-common.version>
 
