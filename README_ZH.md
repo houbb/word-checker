@@ -250,3 +250,5 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word2));
 - [ ] 支持长文本的自动纠正能力
 
 - [ ] 中英文混合的纠正
+
+- [ ] 指定是否忽略大小写

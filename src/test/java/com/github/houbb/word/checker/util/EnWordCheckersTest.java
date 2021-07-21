@@ -44,9 +44,9 @@ public class EnWordCheckersTest {
      */
     @Test
     public void correctListTest() {
-        final String word = "goo";
+        final String word = "goox";
         List<String> stringList = EnWordCheckers.correctList(word);
-        Assert.assertEquals("[go, good, too, god, got, oo, goot, foo]", stringList.toString());
+        Assert.assertEquals("[good, goo, goon, goof, gook, goop, goos, gox, goog, gool, goor]", stringList.toString());
     }
 
     /**
@@ -55,10 +55,10 @@ public class EnWordCheckersTest {
      */
     @Test
     public void correctListWithLimitTest() {
-        final String word = "goo";
+        final String word = "goox";
         final int limit = 2;
         List<String> stringList = EnWordCheckers.correctList(word, limit);
-        Assert.assertEquals("[go, good]", stringList.toString());
+        Assert.assertEquals("[good, goo]", stringList.toString());
     }
 
     /**
@@ -71,7 +71,7 @@ public class EnWordCheckersTest {
         final String word = "speling";
         final int limit = 2;
         List<String> stringList = EnWordCheckers.correctList(word, limit);
-        Assert.assertEquals(1, stringList.size());
+        Assert.assertEquals(2, stringList.size());
     }
 
     /**
