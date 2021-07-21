@@ -2,9 +2,7 @@
 
 [ENGLISH DOC](README.md)
 
-本项目用于单词拼写检查。
-
-支持英文单词拼写检测，和中文拼写检测。
+本项目用于单词拼写检查。支持英文单词拼写检测，和中文拼写检测。
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.houbb/word-checker/badge.svg)](http://mvnrepository.com/artifact/com.github.houbb/word-checker)
 [![Build Status](https://www.travis-ci.org/houbb/word-checker.svg?branch=master)](https://www.travis-ci.org/houbb/word-checker?branch=master)
@@ -28,6 +26,8 @@
 
 - 支持自定义词库
 
+- 内置 27W+ 的英文词库
+
 ### 支持基本的中文拼写检测
 
 # 变更日志
@@ -46,14 +46,14 @@ Jdk 1.7+
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 </dependency>
 ```
 
 ### gradle 引入
 
 ```
-compile group: 'com.github.houbb', name: 'word-checker', version: '0.0.6'
+compile group: 'com.github.houbb', name: 'word-checker', version: '0.0.7'
 ```
 
 ## 测试案例
@@ -244,3 +244,9 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word2));
 # 技术鸣谢
 
 [Words](https://github.com/atebits/Words) 提供的原始英语单词数据。
+
+# ROAD-MAP
+
+- [ ] 支持长文本的自动纠正能力
+
+- [ ] 中英文混合的纠正

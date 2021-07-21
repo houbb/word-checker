@@ -46,14 +46,14 @@ Jdk 1.7+
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
 </dependency>
 ```
 
 ### gradle introduction
 
 ```
-compile group:'com.github.houbb', name:'word-checker', version: '0.0.6'
+compile group:'com.github.houbb', name:'word-checker', version: '0.0.7'
 ```
 
 ## Test Case
