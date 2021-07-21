@@ -1,6 +1,7 @@
 package com.github.houbb.word.checker.util;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -40,6 +41,7 @@ public class WordCheckersTest {
      * 返回最佳匹配结果
      */
     @Test
+    @Ignore
     public void correctMap() {
         final String hello = "hello 你好";
         final String speling = "speling 你好以毒功毒";
@@ -51,6 +53,7 @@ public class WordCheckersTest {
      * 返回最佳匹配结果
      */
     @Test
+    @Ignore
     public void correctMapLimit() {
         final String hello = "hello 你好";
         final String speling = "speling 你好以毒功毒";
