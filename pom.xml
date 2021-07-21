@@ -4,7 +4,7 @@
 
     <groupId>com.github.houbb</groupId>
     <artifactId>word-checker</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 
     <properties>
         <!--============================== All Plugins START ==============================-->
@@ -25,9 +25,9 @@
         <project.compiler.level>1.7</project.compiler.level>
 
         <!--============================== INTER ==============================-->
-        <heaven.version>0.1.127</heaven.version>
+        <heaven.version>0.1.140</heaven.version>
         <!--inter-->
-        <nlp-common.version>0.0.2</nlp-common.version>
+        <nlp-common.version>0.0.5</nlp-common.version>
 
         <!--============================== OTHER ==============================-->
         <junit.version>4.13.1</junit.version>
@@ -44,6 +44,12 @@
                 <groupId>com.github.houbb</groupId>
                 <artifactId>nlp-common</artifactId>
                 <version>${nlp-common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.houbb</groupId>
+                <artifactId>heaven</artifactId>
+                <version>${heaven.version}</version>
             </dependency>
 
             <!--============================== OTHER ==============================-->
@@ -64,6 +70,11 @@
         <dependency>
             <groupId>com.github.houbb</groupId>
             <artifactId>nlp-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.houbb</groupId>
+            <artifactId>heaven</artifactId>
         </dependency>
 
         <!--============================== OTHER ==============================-->

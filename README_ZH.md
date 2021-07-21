@@ -46,14 +46,8 @@ Jdk 1.7+
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 </dependency>
-```
-
-### gradle 引入
-
-```
-compile group: 'com.github.houbb', name: 'word-checker', version: '0.0.7'
 ```
 
 ## 测试案例
@@ -101,18 +95,18 @@ Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
 ## 默认纠正匹配列表
 
 ```java
-final String word = "goo";
+final String word = "goox";
 List<String> stringList = EnWordCheckers.correctList(word);
-Assert.assertEquals("[go, good, too, god, got, oo, goot, foo]", stringList.toString());
+Assert.assertEquals("[good, goo, goon, goof, gook, goop, goos, gox, goog, gool, goor]", stringList.toString());
 ```
 
 ## 指定纠正匹配列表大小
 
 ```java
-final String word = "goo";
+final String word = "goox";
 final int limit = 2;
 List<String> stringList = EnWordCheckers.correctList(word, limit);
-Assert.assertEquals("[go, good]", stringList.toString());
+Assert.assertEquals("[good, goo]", stringList.toString());
 ```
 
 # 中文拼写纠正
@@ -158,6 +152,66 @@ final int limit = 1;
 
 List<String> stringList = ZhWordCheckers.correctList(word, limit);
 Assert.assertEquals("[万变不离其宗]", stringList.toString());
+```
+
+# 长文本中英文混合
+
+## 情景
+
+实际拼写纠正的话，最佳的使用体验是用户输入一个长文本，并且可能是中英文混合的。
+
+然后实现上述对应的功能。
+
+## 核心方法
+
+`WordCheckers` 工具类提供了长文本中英文混合的自动纠正功能。
+
+| 功能 | 方法 | 参数 | 返回值 | 备注 |
+|:----|:----|:----|:---|:----|
+| 文本拼写是否正确 | isCorrect(string) | 待检测的文本 | boolean | 全部正确，才会返回 true |
+| 返回最佳纠正结果 | correct(string) | 待检测的单词 | String | 如果没有找到可以纠正的文本，则返回其本身 |
+| 判断文本拼写是否正确 | correctMap(string) | 待检测的单词 | `Map<String, List<String>>` | 返回所有匹配的纠正列表 |
+| 判断文本拼写是否正确 | correctMap(string, int limit) | 待检测的文本, 返回列表的大小 | 返回指定大小的的纠正列表 | 列表大小 <= limit |
+
+### 拼写是否正确
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好 以毒功毒";
+Assert.assertTrue(WordCheckers.isCorrect(hello));
+Assert.assertFalse(WordCheckers.isCorrect(speling));
+```
+
+### 返回最佳纠正结果
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+Assert.assertEquals("hello 你好", WordCheckers.correct(hello));
+Assert.assertEquals("spelling 你好以毒攻毒", WordCheckers.correct(speling));
+```
+
+### 判断文本拼写是否正确
+
+每一个词，对应的纠正结果。
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello).toString());
+Assert.assertEquals("{ =[ ], speling=[spelling, spewing, sperling, seeling, spieling, spiling, speeling, speiling, spelding], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling).toString());
+```
+
+### 判断文本拼写是否正确
+
+同上，指定最多返回的个数。
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+
+Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello, 2).toString());
+Assert.assertEquals("{ =[ ], speling=[spelling, spewing], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling, 2).toString());
 ```
 
 # 格式化处理
@@ -247,8 +301,10 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word2));
 
 # ROAD-MAP
 
-- [ ] 支持长文本的自动纠正能力
+- [x] 支持长文本的自动纠正能力
 
-- [ ] 中英文混合的纠正
+- [x] 中英文混合的纠正
 
 - [ ] 指定是否忽略大小写
+
+- [ ] 指定是否忽略全角半角
