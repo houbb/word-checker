@@ -23,6 +23,7 @@ import java.util.Map;
  * @version 0.0.1
  * @since 0.0.1
  */
+@Deprecated
 public final class EnWordChecker implements IWordChecker {
 
     /**
@@ -68,7 +69,7 @@ public final class EnWordChecker implements IWordChecker {
 
         String formatWord = formatWord(word, context.wordFormat());
 
-        final Map<String, Integer> wordDataMap = context.wordData().freqData();
+        final Map<String, Long> wordDataMap = context.wordData().freqData();
         if (wordDataMap.containsKey(formatWord)) {
             // 返回原始信息
             return Collections.singletonList(word);
@@ -78,8 +79,7 @@ public final class EnWordChecker implements IWordChecker {
         List<CandidateDto> candidateDtos = new LinkedList<>();
         for (String option : options) {
             if (wordDataMap.containsKey(option)) {
-                CandidateDto dto = CandidateDto.builder()
-                        .word(option).count(wordDataMap.get(option)).build();
+                CandidateDto dto = new CandidateDto(option, wordDataMap.get(option));
                 candidateDtos.add(dto);
             }
         }
@@ -90,8 +90,7 @@ public final class EnWordChecker implements IWordChecker {
         for (String option : options) {
             for (String optionEdit : edits(option)) {
                 if (wordDataMap.containsKey(optionEdit)) {
-                    CandidateDto dto = CandidateDto.builder()
-                            .word(option).count(wordDataMap.get(option)).build();
+                    CandidateDto dto = new CandidateDto(option, wordDataMap.get(option));
                     candidateDtos.add(dto);
                 }
             }

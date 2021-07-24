@@ -27,6 +27,8 @@ public class WordCheckerContext implements IWordCheckerContext {
      */
     private IWordFormat wordFormat;
 
+    private int editDistance;
+
     @Override
     public IWordData wordData() {
         return wordData;
@@ -47,4 +49,13 @@ public class WordCheckerContext implements IWordCheckerContext {
         return this;
     }
 
+    @Override
+    public int editDistance() {
+        return editDistance;
+    }
+
+    public WordCheckerContext editDistance(int editDistance) {
+        this.editDistance = editDistance;
+        return this;
+    }
 }

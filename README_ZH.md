@@ -14,6 +14,8 @@
 
 ### 支持英文的单词纠错
 
+- 通过对称删除拼写更正算法，拼写更正和模糊搜索速度提高 1000 倍
+
 - 可以迅速判断当前单词是否拼写错误
 
 - 可以返回最佳匹配结果
@@ -26,7 +28,7 @@
 
 - 支持自定义词库
 
-- 内置 27W+ 的英文词库
+- 内置 8W+ 的英文词库
 
 ### 支持基本的中文拼写检测
 
@@ -46,7 +48,7 @@ Jdk 1.7+
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>0.0.8</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
@@ -56,7 +58,7 @@ Jdk 1.7+
 
 ```java
 final String speling = "speling";
-Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
+Assert.assertEquals("selling", EnWordCheckers.correct(speling));
 ```
 
 # 核心 api 介绍
@@ -89,7 +91,7 @@ Assert.assertFalse(EnWordCheckers.isCorrect(speling));
 final String hello = "hello";
 final String speling = "speling";
 Assert.assertEquals("hello", EnWordCheckers.correct(hello));
-Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
+Assert.assertEquals("selling", EnWordCheckers.correct(speling));
 ```
 
 ## 默认纠正匹配列表
@@ -97,7 +99,7 @@ Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
 ```java
 final String word = "goox";
 List<String> stringList = EnWordCheckers.correctList(word);
-Assert.assertEquals("[good, goo, goon, goof, gook, goop, goos, gox, goog, gool, goor]", stringList.toString());
+Assert.assertEquals("[good, goo, goon, goof, gobo, gook, goop]", stringList.toString());
 ```
 
 ## 指定纠正匹配列表大小
@@ -188,7 +190,7 @@ Assert.assertFalse(WordCheckers.isCorrect(speling));
 final String hello = "hello 你好";
 final String speling = "speling 你好以毒功毒";
 Assert.assertEquals("hello 你好", WordCheckers.correct(hello));
-Assert.assertEquals("spelling 你好以毒攻毒", WordCheckers.correct(speling));
+Assert.assertEquals("selling 你好以毒攻毒", WordCheckers.correct(speling));
 ```
 
 ### 判断文本拼写是否正确
@@ -199,7 +201,7 @@ Assert.assertEquals("spelling 你好以毒攻毒", WordCheckers.correct(speling)
 final String hello = "hello 你好";
 final String speling = "speling 你好以毒功毒";
 Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello).toString());
-Assert.assertEquals("{ =[ ], speling=[spelling, spewing, sperling, seeling, spieling, spiling, speeling, speiling, spelding], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling).toString());
+Assert.assertEquals("{ =[ ], speling=[selling, spewing, sperling, seeling, spieling, spiling, speeling, speiling, spelding], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling).toString());
 ```
 
 ### 判断文本拼写是否正确
@@ -211,7 +213,7 @@ final String hello = "hello 你好";
 final String speling = "speling 你好以毒功毒";
 
 Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello, 2).toString());
-Assert.assertEquals("{ =[ ], speling=[spelling, spewing], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling, 2).toString());
+Assert.assertEquals("{ =[ ], speling=[selling, spewing], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling, 2).toString());
 ```
 
 # 格式化处理
@@ -305,6 +307,16 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word2));
 
 - [x] 中英文混合的纠正
 
-- [ ] 指定是否忽略大小写
+- [x] 指定是否忽略大小写
 
-- [ ] 指定是否忽略全角半角
+- [x] 指定是否忽略全角半角
+
+- [ ] 可以动态指定编辑距离
+
+- [ ] 可以动态指定编辑距离算法
+
+- [ ] 基于 n-gram 的实现
+
+# 拓展阅读
+
+[java 实现中英文拼写检查和错误纠正？](http://houbb.github.io/2018/08/11/nlp-chinese-word-checker)

@@ -22,43 +22,43 @@ public class CandidateDto implements Comparable<CandidateDto> {
     /**
      * 总数
      */
-    private int count;
+    private Long count;
 
-    public CandidateDto(String word, int count) {
+    public CandidateDto(String word, Long count) {
         this.word = word;
         this.count = count;
+    }
+
+    /**
+     * @param word 单词
+     * @param count 频率
+     * @return 结果
+     * @since 0.1.0
+     */
+    public static CandidateDto of(String word, Long count) {
+        return new CandidateDto(word, count);
     }
 
     public String getWord() {
         return word;
     }
 
-    public int getCount() {
+    public Long getCount() {
         return count;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof CandidateDto)) {
-            return false;
-        }
-
-        CandidateDto that = (CandidateDto) o;
-
-        if (count != that.count) {
-            return false;
-        }
-        return Objects.equals(word, that.word);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        CandidateDto that = (CandidateDto) object;
+        return Objects.equals(word, that.word) &&
+                Objects.equals(count, that.count);
     }
 
     @Override
     public int hashCode() {
-        int result = word != null ? word.hashCode() : 0;
-        result = 31 * result + count;
-        return result;
+        return Objects.hash(word, count);
     }
 
     @Override
@@ -70,36 +70,7 @@ public class CandidateDto implements Comparable<CandidateDto> {
 
     @Override
     public int compareTo(CandidateDto o) {
-        return o.count - this.count;
-    }
-
-    public static CandidateDtoBuilder builder() {
-        return new CandidateDtoBuilder();
-    }
-
-    public static class CandidateDtoBuilder {
-        /**
-         * 单词
-         */
-        private String word;
-
-        /**
-         * 总数
-         */
-        private int count;
-
-        public CandidateDtoBuilder word(String word) {
-            this.word = word;
-            return this;
-        }
-        public CandidateDtoBuilder count(int count) {
-            this.count = count;
-            return this;
-        }
-
-        public CandidateDto build() {
-            return new CandidateDto(this.word, this.count);
-        }
+        return o.count.compareTo(this.count);
     }
 
 }

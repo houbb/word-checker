@@ -28,11 +28,12 @@ public class CandidateDtoTest {
     @Test
     public void sortTest() {
         List<CandidateDto> dtoList = new LinkedList<>();
-        dtoList.add(CandidateDto.builder().word("hello").count(2).build());
-        dtoList.add(CandidateDto.builder().word("word").count(12).build());
-        dtoList.add(CandidateDto.builder().word("the").count(6).build());
+        dtoList.add(CandidateDto.of("hello", 2L));
+        dtoList.add(CandidateDto.of("word", 12L));
+        dtoList.add(CandidateDto.of("the", 6L));
         Collections.sort(dtoList);
-        Assert.assertEquals(12, dtoList.get(0).getCount());
+        long count = dtoList.get(0).getCount();
+        Assert.assertEquals(12L, count);
     }
 
 }

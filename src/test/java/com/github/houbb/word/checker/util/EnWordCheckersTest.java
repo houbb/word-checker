@@ -35,7 +35,7 @@ public class EnWordCheckersTest {
         final String hello = "hello";
         final String speling = "speling";
         Assert.assertEquals("hello", EnWordCheckers.correct(hello));
-        Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
+        Assert.assertEquals("selling", EnWordCheckers.correct(speling));
     }
 
     /**
@@ -46,7 +46,7 @@ public class EnWordCheckersTest {
     public void correctListTest() {
         final String word = "goox";
         List<String> stringList = EnWordCheckers.correctList(word);
-        Assert.assertEquals("[good, goo, goon, goof, gook, goop, goos, gox, goog, gool, goor]", stringList.toString());
+        Assert.assertEquals("[good, goo, goon, goof, gobo, gook, goop]", stringList.toString());
     }
 
     /**

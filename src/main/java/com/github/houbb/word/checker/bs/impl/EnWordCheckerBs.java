@@ -5,6 +5,7 @@ import com.github.houbb.word.checker.bs.IWordCheckerBs;
 import com.github.houbb.word.checker.core.IWordChecker;
 import com.github.houbb.word.checker.core.IWordCheckerContext;
 import com.github.houbb.word.checker.core.impl.EnWordChecker;
+import com.github.houbb.word.checker.core.impl.SymSpellEnWordChecker;
 import com.github.houbb.word.checker.core.impl.WordCheckerContext;
 import com.github.houbb.word.checker.support.data.IWordData;
 import com.github.houbb.word.checker.support.data.english.EnglishWordDatas;
@@ -27,7 +28,7 @@ public final class EnWordCheckerBs implements IWordCheckerBs {
      * 单词拼写实现类
      * @since 0.0.3
      */
-    private IWordChecker wordChecker = EnWordChecker.getInstance();
+    private IWordChecker wordChecker = SymSpellEnWordChecker.getInstance();
 
     /**
      * 单词数据信息

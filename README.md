@@ -16,6 +16,8 @@ Support English word spelling detection, and Chinese spelling detection.
 
 ### Support English word correction
 
+- 1000X faster spelling correction & fuzzy search through Symmetric Delete spelling correction algorithm
+
 - You can quickly determine whether the current word is spelled incorrectly
 
 - Can return the best match result
@@ -46,14 +48,8 @@ Jdk 1.7+
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>0.0.7</version>
+    <version>0.1.0</version>
 </dependency>
-```
-
-### gradle introduction
-
-```
-compile group:'com.github.houbb', name:'word-checker', version: '0.0.7'
 ```
 
 ## Test Case
@@ -62,7 +58,7 @@ According to the input, the best correction result is automatically returned.
 
 ```java
 final String speling = "speling";
-Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
+Assert.assertEquals("selling", EnWordCheckers.correct(speling));
 ```
 
 # Core api introduction
@@ -95,7 +91,7 @@ Assert.assertFalse(EnWordCheckers.isCorrect(speling));
 final String hello = "hello";
 final String speling = "speling";
 Assert.assertEquals("hello", EnWordCheckers.correct(hello));
-Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
+Assert.assertEquals("selling", EnWordCheckers.correct(speling));
 ```
 
 ## Corrected the match list by default
@@ -103,7 +99,7 @@ Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
 ```java
 final String word = "goo";
 List<String> stringList = EnWordCheckers.correctList(word);
-Assert.assertEquals("[go, good, too, god, got, oo, goot, foo]", stringList.toString());
+Assert.assertEquals("[good, goo, goon, goof, gobo, gook, goop]", stringList.toString());
 ```
 
 ## Specify the size of the corrected match list
@@ -230,6 +226,66 @@ The content is as follows:
 ```
 
 Use English spaces to separate, the front is wrong, and the back is correct.
+
+# Long text mixed in Chinese and English
+
+## Condition
+
+The actual spelling of the story, the best user experience is a long text entered by the user, and it may be a mixture of Chinese and English.
+
+Then realize the corresponding functions mentioned above.
+
+## Core method
+
+The `WordCheckers` tool class provides the automatic function of mixing Chinese and English long texts.
+
+| Function | Method | Parameters | Return Value | Remarks |
+|:----|:----|:----|:---|:----|
+| Determine whether the spelling of the word is correct | isCorrect(string) | The word to be detected | boolean | |
+| Return the best corrected result | correct(string) | The word to be detected | String | If no word that can be corrected is found, then return itself |
+| Determine whether the spelling of the text is correct | correctMap(string) | The text to be detected | `Map<String, List<String>>` | Return a list of all matching corrections |
+| Determine whether the spelling of the text is correct | correctMap(string, int limit) | The text to be detected, the size of the returned list | Return the corrected list of the specified size | List size <= limit |
+
+### Is the spelling correct?
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好 以毒功毒";
+Assert.assertTrue(WordCheckers.isCorrect(hello));
+Assert.assertFalse(WordCheckers.isCorrect(speling));
+```
+
+### Return the best corrected result
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+Assert.assertEquals("hello 你好", WordCheckers.correct(hello));
+Assert.assertEquals("selling 你好以毒攻毒", WordCheckers.correct(speling));
+```
+
+### Determine whether the spelling of the text is correct
+
+Each word corresponds to the correction result.
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello).toString());
+Assert.assertEquals("{ =[ ], speling=[selling, spewing, sperling, seeling, spieling, spiling, speeling, speiling, spelding], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling).toString());
+```
+
+### Determine whether the spelling of the text is correct
+
+Same as above, specify the maximum number of returns.
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+
+Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello, 2).toString());
+Assert.assertEquals("{ =[ ], speling=[selling, spewing], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling, 2).toString());
+```
 
 # Late Road-Map
 

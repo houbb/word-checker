@@ -1,5 +1,7 @@
 package com.github.houbb.word.checker.support.data;
 
+import com.github.houbb.word.checker.support.dto.CandidateDto;
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +19,7 @@ public interface IWordData {
      * @return Map 集合
      * @since 0.0.3
      */
-    Map<String, Integer> freqData();
+    Map<String, Long> freqData();
 
     /**
      * 修正数据列表
@@ -25,5 +27,13 @@ public interface IWordData {
      * @since 0.0.5
      */
     Map<String, List<String>> correctData();
+
+    /**
+     * 删除算法之后的数据
+     * @return 结果
+     * @since 对应的结果
+     * 
+     */
+    Map<String, List<CandidateDto>> symSpellData();
 
 }

@@ -41,6 +41,6 @@ public final class WordCheckerConst {
      * 默认英文单词出现的次数
      * @since 0.0.4
      */
-    public static final int DEFAULT_EN_WORD_COUNT = 1;
+    public static final Long DEFAULT_EN_WORD_COUNT = 1L;
 
 }

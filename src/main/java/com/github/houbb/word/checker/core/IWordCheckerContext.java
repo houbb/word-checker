@@ -28,4 +28,14 @@ public interface IWordCheckerContext {
      */
     IWordFormat wordFormat();
 
+    /**
+     * 编辑距离
+     *
+     * ps: 预留属性
+     *
+     * @return 编辑距离
+     * @since 0.1.0
+     */
+    int editDistance();
+
 }
