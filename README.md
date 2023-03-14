@@ -1,10 +1,6 @@
-# Project Description
+# 项目简介
 
-[中文文档](README_ZH.md)
-
-This item is used for word spell checking.
-
-Support English word spelling detection, and Chinese spelling detection.
+本项目用于单词拼写检查。支持英文单词拼写检测，和中文拼写检测。
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.houbb/word-checker/badge.svg)](http://mvnrepository.com/artifact/com.github.houbb/word-checker)
 [![Build Status](https://www.travis-ci.org/houbb/word-checker.svg?branch=master)](https://www.travis-ci.org/houbb/word-checker?branch=master)
@@ -12,37 +8,39 @@ Support English word spelling detection, and Chinese spelling detection.
 [![](https://img.shields.io/badge/license-Apache2-FF0080.svg)](https://github.com/houbb/word-checker/blob/master/LICENSE.txt)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/houbb/word-checker)
 
-# Feature description
+# 特性说明
 
-### Support English word correction
+### 支持英文的单词纠错
 
-- 1000X faster spelling correction & fuzzy search through Symmetric Delete spelling correction algorithm
+- 通过对称删除拼写更正算法，拼写更正和模糊搜索速度提高 1000 倍
 
-- You can quickly determine whether the current word is spelled incorrectly
+- 可以迅速判断当前单词是否拼写错误
 
-- Can return the best match result
+- 可以返回最佳匹配结果
 
-- You can return to the corrected matching list, support specifying the size of the returned list
+- 可以返回纠正匹配列表，支持指定返回列表的大小
 
-- Error message support i18n
+- 错误提示支持 i18n
 
-- Support uppercase and lowercase, full-width and half-width formatting
+- 支持大小写、全角半角格式化处理
 
-- Support custom thesaurus
+- 支持自定义词库
 
-### Support basic Chinese spelling check
+- 内置 8W+ 的英文词库
 
-# Change log
+### 支持基本的中文拼写检测
 
-> [Change Log](https://github.com/houbb/word-checker/blob/master/CHANGELOG.md)
+# 变更日志
 
-# Quick start
+> [变更日志](https://github.com/houbb/word-checker/blob/master/CHANGELOG.md)
 
-## JDK version
+# 快速开始
+
+## JDK 版本
 
 Jdk 1.7+
 
-## maven introduction
+## maven 引入
 
 ```xml
 <dependency>
@@ -52,31 +50,31 @@ Jdk 1.7+
 </dependency>
 ```
 
-## Test Case
+## 测试案例
 
-According to the input, the best correction result is automatically returned.
+会根据输入，自动返回最佳纠正结果。
 
 ```java
 final String speling = "speling";
 Assert.assertEquals("selling", EnWordCheckers.correct(speling));
 ```
 
-# Core api introduction
+# 核心 api 介绍
 
-The core api is under the `EnWordCheckers` tool class.
+核心 api 在 `EnWordCheckers` 工具类下。
 
-| Function | Method | Parameters | Return Value | Remarks |
+| 功能 | 方法 | 参数 | 返回值 | 备注 |
 |:----|:----|:----|:---|:----|
-| Determine whether the spelling of the word is correct | isCorrect(string) | The word to be detected | boolean | |
-| Return the best corrected result | correct(string) | The word to be detected | String | If no word that can be corrected is found, then return itself |
-| Determine whether the spelling of the word is correct | correctList(string) | The word to be detected | List<String> | Return a list of all matching corrections |
-| Determine whether the spelling of the word is correct | correctList(string, int limit) | The word to be detected, the size of the returned list | Return the corrected list of the specified size | List size <= limit |
+| 判断单词拼写是否正确 | isCorrect(string) | 待检测的单词 | boolean | |
+| 返回最佳纠正结果 | correct(string) | 待检测的单词 | String | 如果没有找到可以纠正的单词，则返回其本身 |
+| 判断单词拼写是否正确 | correctList(string) | 待检测的单词 | List<String> | 返回所有匹配的纠正列表 |
+| 判断单词拼写是否正确 | correctList(string, int limit) | 待检测的单词, 返回列表的大小 | 返回指定大小的的纠正列表 | 列表大小 <= limit |
 
-## Test example
+## 测试例子
 
-> See [EnWordCheckerTest.java](https://github.com/houbb/word-checker/tree/master/src/test/java/com/github/houbb/word/checker/util/EnWordCheckersTest.java)
+> 参见 [EnWordCheckerTest.java](https://github.com/houbb/word-checker/tree/master/src/test/java/com/github/houbb/word/checker/util/EnWordCheckersTest.java)
 
-## Is the spelling correct?
+## 是否拼写正确
 
 ```java
 final String hello = "hello";
@@ -85,7 +83,7 @@ Assert.assertTrue(EnWordCheckers.isCorrect(hello));
 Assert.assertFalse(EnWordCheckers.isCorrect(speling));
 ```
 
-## Return the best match result
+## 返回最佳匹配结果
 
 ```java
 final String hello = "hello";
@@ -94,30 +92,30 @@ Assert.assertEquals("hello", EnWordCheckers.correct(hello));
 Assert.assertEquals("selling", EnWordCheckers.correct(speling));
 ```
 
-## Corrected the match list by default
+## 默认纠正匹配列表
 
 ```java
-final String word = "goo";
+final String word = "goox";
 List<String> stringList = EnWordCheckers.correctList(word);
 Assert.assertEquals("[good, goo, goon, goof, gobo, gook, goop]", stringList.toString());
 ```
 
-## Specify the size of the corrected match list
+## 指定纠正匹配列表大小
 
 ```java
-final String word = "goo";
+final String word = "goox";
 final int limit = 2;
 List<String> stringList = EnWordCheckers.correctList(word, limit);
-Assert.assertEquals("[go, good]", stringList.toString());
+Assert.assertEquals("[good, goo]", stringList.toString());
 ```
 
-# Chinese spelling correction
+# 中文拼写纠正
 
-## Core api
+## 核心 api
 
-In order to reduce learning costs, the core api and `ZhWordCheckers` are consistent with English spelling detection.
+为降低学习成本，核心 api 和 `ZhWordCheckers` 中，和英文拼写检测保持一致。
 
-## Is the spelling correct?
+## 是否拼写正确
 
 ```java
 final String right = "正确";
@@ -127,7 +125,7 @@ Assert.assertTrue(ZhWordCheckers.isCorrect(right));
 Assert.assertFalse(ZhWordCheckers.isCorrect(error));
 ```
 
-## Return the best match result
+## 返回最佳匹配结果
 
 ```java
 final String right = "正确";
@@ -137,7 +135,7 @@ Assert.assertEquals("正确", ZhWordCheckers.correct(right));
 Assert.assertEquals("万变不离其宗", ZhWordCheckers.correct(error));
 ```
 
-## Corrected the match list by default
+## 默认纠正匹配列表
 
 ```java
 final String word = "万变不离其中";
@@ -146,7 +144,7 @@ List<String> stringList = ZhWordCheckers.correctList(word);
 Assert.assertEquals("[万变不离其宗]", stringList.toString());
 ```
 
-## Specify the size of the corrected match list
+## 指定纠正匹配列表大小
 
 ```java
 final String word = "万变不离其中";
@@ -156,13 +154,73 @@ List<String> stringList = ZhWordCheckers.correctList(word, limit);
 Assert.assertEquals("[万变不离其宗]", stringList.toString());
 ```
 
-# Formatting
+# 长文本中英文混合
 
-Sometimes the user's input is various, this tool supports the processing of formatting.
+## 情景
 
-## Case
+实际拼写纠正的话，最佳的使用体验是用户输入一个长文本，并且可能是中英文混合的。
 
-Uppercase will be uniformly formatted as lowercase.
+然后实现上述对应的功能。
+
+## 核心方法
+
+`WordCheckers` 工具类提供了长文本中英文混合的自动纠正功能。
+
+| 功能 | 方法 | 参数 | 返回值 | 备注 |
+|:----|:----|:----|:---|:----|
+| 文本拼写是否正确 | isCorrect(string) | 待检测的文本 | boolean | 全部正确，才会返回 true |
+| 返回最佳纠正结果 | correct(string) | 待检测的单词 | String | 如果没有找到可以纠正的文本，则返回其本身 |
+| 判断文本拼写是否正确 | correctMap(string) | 待检测的单词 | `Map<String, List<String>>` | 返回所有匹配的纠正列表 |
+| 判断文本拼写是否正确 | correctMap(string, int limit) | 待检测的文本, 返回列表的大小 | 返回指定大小的的纠正列表 | 列表大小 <= limit |
+
+### 拼写是否正确
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好 以毒功毒";
+Assert.assertTrue(WordCheckers.isCorrect(hello));
+Assert.assertFalse(WordCheckers.isCorrect(speling));
+```
+
+### 返回最佳纠正结果
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+Assert.assertEquals("hello 你好", WordCheckers.correct(hello));
+Assert.assertEquals("selling 你好以毒攻毒", WordCheckers.correct(speling));
+```
+
+### 判断文本拼写是否正确
+
+每一个词，对应的纠正结果。
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello).toString());
+Assert.assertEquals("{ =[ ], speling=[selling, spewing, sperling, seeling, spieling, spiling, speeling, speiling, spelding], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling).toString());
+```
+
+### 判断文本拼写是否正确
+
+同上，指定最多返回的个数。
+
+```java
+final String hello = "hello 你好";
+final String speling = "speling 你好以毒功毒";
+
+Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello, 2).toString());
+Assert.assertEquals("{ =[ ], speling=[selling, spewing], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling, 2).toString());
+```
+
+# 格式化处理
+
+有时候用户的输入是各式各样的，本工具支持对于格式化的处理。
+
+## 大小写
+
+大写会被统一格式化为小写。
 
 ```java
 final String word = "stRing";
@@ -170,40 +228,40 @@ final String word = "stRing";
 Assert.assertTrue(EnWordCheckers.isCorrect(word));
 ```
 
-## Full-width half-width
+## 全角半角
 
-Full-width will be uniformly formatted as half-width.
+全角会被统一格式化为半角。
 
 ```java
-final String word = "string";
+final String word = "stｒing";
 
 Assert.assertTrue(EnWordCheckers.isCorrect(word));
 ```
 
-# Custom English Thesaurus
+# 自定义英文词库
 
-## File configuration
+## 文件配置
 
-You can create the file `resources/data/define_word_checker_en.txt` in the project resource directory
+你可以在项目资源目录创建文件 `resources/data/define_word_checker_en.txt`
 
-The content is as follows:
+内容如下：
 
 ```
 my-long-long-define-word,2
 my-long-long-define-word-two
 ```
 
-Different words are on their own lines.
+不同的词独立一行。
 
-The first column of each row represents the word, and the second column represents the number of occurrences, separated by a comma `,`.
+每一行第一列代表单词，第二列代表出现的次数，二者用逗号 `,` 隔开。
 
-The greater the number of times, the higher the return priority when correcting. The default value is 1.
+次数越大，在纠正的时候返回优先级就越高，默认值为 1。
 
-User-defined thesaurus has a higher priority than the built-in thesaurus of the system.
+用户自定义的词库优先级高于系统内置词库。
 
-## Test code
+## 测试代码
 
-After we specify the corresponding word, the spelling check will take effect.
+我们在指定了对应的单词之后，拼写检测的时候就会生效。
 
 ```java
 final String word = "my-long-long-define-word";
@@ -213,79 +271,33 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word));
 Assert.assertTrue(EnWordCheckers.isCorrect(word2));
 ```
 
-# Custom Chinese Thesaurus
+# 自定义中文词库
 
-## File configuration
+## 文件配置
 
-You can create the file `resources/data/define_word_checker_zh.txt` in the project resource directory
+你可以在项目资源目录创建文件 `resources/data/define_word_checker_zh.txt`
 
-The content is as follows:
+内容如下：
 
 ```
 默守成规 墨守成规
 ```
 
-Use English spaces to separate, the front is wrong, and the back is correct.
+使用英文空格分隔，前面是错误，后面是正确。
 
-# Long text mixed in Chinese and English
+# 后期 Road-Map
 
-## Condition
+- 支持英文分词，处理整个英文句子
 
-The actual spelling of the story, the best user experience is a long text entered by the user, and it may be a mixture of Chinese and English.
+- 支持中文分词拼写检测
 
-Then realize the corresponding functions mentioned above.
+- 引入中文纠错算法，同音字和形近字处理。
 
-## Core method
+- 支持中英文混合拼写检测
 
-The `WordCheckers` tool class provides the automatic function of mixing Chinese and English long texts.
+# 技术鸣谢
 
-| Function | Method | Parameters | Return Value | Remarks |
-|:----|:----|:----|:---|:----|
-| Determine whether the spelling of the word is correct | isCorrect(string) | The word to be detected | boolean | |
-| Return the best corrected result | correct(string) | The word to be detected | String | If no word that can be corrected is found, then return itself |
-| Determine whether the spelling of the text is correct | correctMap(string) | The text to be detected | `Map<String, List<String>>` | Return a list of all matching corrections |
-| Determine whether the spelling of the text is correct | correctMap(string, int limit) | The text to be detected, the size of the returned list | Return the corrected list of the specified size | List size <= limit |
-
-### Is the spelling correct?
-
-```java
-final String hello = "hello 你好";
-final String speling = "speling 你好 以毒功毒";
-Assert.assertTrue(WordCheckers.isCorrect(hello));
-Assert.assertFalse(WordCheckers.isCorrect(speling));
-```
-
-### Return the best corrected result
-
-```java
-final String hello = "hello 你好";
-final String speling = "speling 你好以毒功毒";
-Assert.assertEquals("hello 你好", WordCheckers.correct(hello));
-Assert.assertEquals("selling 你好以毒攻毒", WordCheckers.correct(speling));
-```
-
-### Determine whether the spelling of the text is correct
-
-Each word corresponds to the correction result.
-
-```java
-final String hello = "hello 你好";
-final String speling = "speling 你好以毒功毒";
-Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello).toString());
-Assert.assertEquals("{ =[ ], speling=[selling, spewing, sperling, seeling, spieling, spiling, speeling, speiling, spelding], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling).toString());
-```
-
-### Determine whether the spelling of the text is correct
-
-Same as above, specify the maximum number of returns.
-
-```java
-final String hello = "hello 你好";
-final String speling = "speling 你好以毒功毒";
-
-Assert.assertEquals("{hello=[hello],  =[ ], 你=[你], 好=[好]}", WordCheckers.correctMap(hello, 2).toString());
-Assert.assertEquals("{ =[ ], speling=[selling, spewing], 你=[你], 好=[好], 以毒功毒=[以毒攻毒]}", WordCheckers.correctMap(speling, 2).toString());
-```
+[Words](https://github.com/atebits/Words) 提供的原始英语单词数据。
 
 # NLP 开源矩阵
 
@@ -302,17 +314,23 @@ Assert.assertEquals("{ =[ ], speling=[selling, spewing], 你=[你], 好=[好], �
 [word-checker 拼写检测](https://github.com/houbb/word-checker)
 
 [sensitive-word 敏感词](https://github.com/houbb/sensitive-word)
+                                                                                            
+# ROAD-MAP
 
-# Late Road-Map
+- [x] 支持长文本的自动纠正能力
 
-- Support English word segmentation and process the entire English sentence
+- [x] 中英文混合的纠正
 
-- Support Chinese word segmentation spelling detection
+- [x] 指定是否忽略大小写
 
-- Introduce Chinese error correction algorithm, homophone characters and similar characters processing.
+- [x] 指定是否忽略全角半角
 
-- Support Chinese and English mixed spelling detection
+- [ ] 可以动态指定编辑距离
 
-# Technical Acknowledgements
+- [ ] 可以动态指定编辑距离算法
 
-[Words](https://github.com/atebits/Words) provides raw English word data.
+- [ ] 基于 n-gram 的实现
+
+# 拓展阅读
+
+[java 实现中英文拼写检查和错误纠正？](http://houbb.github.io/2018/08/11/nlp-chinese-word-checker)
