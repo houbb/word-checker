@@ -28,11 +28,19 @@ public class CandidateDtoTest {
     @Test
     public void sortTest() {
         List<CandidateDto> dtoList = new LinkedList<>();
-        dtoList.add(CandidateDto.builder().word("hello").count(2).build());
-        dtoList.add(CandidateDto.builder().word("word").count(12).build());
-        dtoList.add(CandidateDto.builder().word("the").count(6).build());
+        // 以  good 拼写为例子
+        dtoList.add(CandidateDto.newInstance().word("good").count(2).editDistance(0));
+        dtoList.add(CandidateDto.newInstance().word("god").count(2).editDistance(1));
+        dtoList.add(CandidateDto.newInstance().word("goods").count(3).editDistance(1));
+        dtoList.add(CandidateDto.newInstance().word("mood").count(10).editDistance(1));
+        dtoList.add(CandidateDto.newInstance().word("golds").count(3).editDistance(2));
         Collections.sort(dtoList);
-        Assert.assertEquals(12, dtoList.get(0).getCount());
+
+//        System.out.println(dtoList);
+
+        Assert.assertEquals("good", dtoList.get(0).word());
+
+        //TODO: 验证排序的结果
     }
 
 }

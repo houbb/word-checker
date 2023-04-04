@@ -28,6 +28,8 @@
 
 - 内置 27W+ 的英文词库
 
+- 支持指定英文的编辑距离
+
 ### 支持基本的中文拼写检测
 
 # 变更日志
@@ -46,7 +48,7 @@ Jdk 1.7+
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -56,122 +58,111 @@ Jdk 1.7+
 
 ```java
 final String speling = "speling";
-Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
+Assert.assertEquals("spelling", WordCheckerHelper.correct(speling));
 ```
 
 # 核心 api 介绍
 
-核心 api 在 `EnWordCheckers` 工具类下。
+核心 api 在 `WordCheckerHelper` 工具类下。
 
-| 功能 | 方法 | 参数 | 返回值 | 备注 |
-|:----|:----|:----|:---|:----|
-| 判断单词拼写是否正确 | isCorrect(string) | 待检测的单词 | boolean | |
-| 返回最佳纠正结果 | correct(string) | 待检测的单词 | String | 如果没有找到可以纠正的单词，则返回其本身 |
-| 判断单词拼写是否正确 | correctList(string) | 待检测的单词 | List<String> | 返回所有匹配的纠正列表 |
-| 判断单词拼写是否正确 | correctList(string, int limit) | 待检测的单词, 返回列表的大小 | 返回指定大小的的纠正列表 | 列表大小 <= limit |
+`WordCheckers` 工具类提供了长文本中英文混合的自动纠正功能，当然也支持单个单词。
 
-## 测试例子
+| 功能 | 方法                            | 参数 | 返回值                         | 备注                   |
+|:----|:------------------------------|:----|:----------------------------|:---------------------|
+| 文本拼写是否正确 | isCorrect(string)             | 待检测的文本 | boolean                     | 全部正确，才会返回 true       |
+| 返回最佳纠正结果 | correct(string)               | 待检测的单词 | String                      | 如果没有找到可以纠正的文本，则返回其本身 |
+| 判断文本拼写是否正确 | correctMap(string)            | 待检测的单词 | `Map<String, List<String>>` | 返回所有匹配的纠正列表 MAP      |
+| 判断文本拼写是否正确 | correctMap(string, int limit) | 待检测的文本, 返回列表的大小 | 返回指定大小的的纠正列表      MAP          | 列表大小 <= limit        |
+| 判断文本拼写是否正确 | correctList(string)          | 待检测的单词 | `List<String>`              | 返回所有匹配的纠正列表          |
+| 判断文本拼写是否正确 | correctList(string, int limit) | 待检测的文本, 返回列表的大小 | 返回指定大小的的纠正列表                | 列表大小 <= limit        |
 
-> 参见 [EnWordCheckerTest.java](https://github.com/houbb/word-checker/tree/master/src/test/java/com/github/houbb/word/checker/util/EnWordCheckersTest.java)
+## 英文测试例子
 
-## 是否拼写正确
+> 参见 [EnWordCheckerTest.java](https://github.com/houbb/word-checker/tree/master/src/test/java/com/github/houbb/word/checker/util/WordCheckerHelperTest.java)
 
-```java
-final String hello = "hello";
-final String speling = "speling";
-Assert.assertTrue(EnWordCheckers.isCorrect(hello));
-Assert.assertFalse(EnWordCheckers.isCorrect(speling));
-```
-
-## 返回最佳匹配结果
+### 是否拼写正确
 
 ```java
 final String hello = "hello";
 final String speling = "speling";
-Assert.assertEquals("hello", EnWordCheckers.correct(hello));
-Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
+Assert.assertTrue(WordCheckerHelper.isCorrect(hello));
+Assert.assertFalse(WordCheckerHelper.isCorrect(speling));
 ```
 
-## 默认纠正匹配列表
+### 返回最佳匹配结果
+
+```java
+final String hello = "hello";
+final String speling = "speling";
+Assert.assertEquals("hello", WordCheckerHelper.correct(hello));
+Assert.assertEquals("spelling", WordCheckerHelper.correct(speling));
+```
+
+### 默认纠正匹配列表
 
 ```java
 final String word = "goox";
-List<String> stringList = EnWordCheckers.correctList(word);
+List<String> stringList = WordCheckerHelper.correctList(word);
 Assert.assertEquals("[good, goo, goon, goof, gook, goop, goos, gox, goog, gool, goor]", stringList.toString());
 ```
 
-## 指定纠正匹配列表大小
+### 指定纠正匹配列表大小
 
 ```java
 final String word = "goox";
 final int limit = 2;
-List<String> stringList = EnWordCheckers.correctList(word, limit);
+List<String> stringList = WordCheckerHelper.correctList(word, limit);
 Assert.assertEquals("[good, goo]", stringList.toString());
 ```
 
-# 中文拼写纠正
+## 中文拼写纠正
 
-## 核心 api
-
-为降低学习成本，核心 api 和 `ZhWordCheckers` 中，和英文拼写检测保持一致。
-
-## 是否拼写正确
+### 是否拼写正确
 
 ```java
 final String right = "正确";
 final String error = "万变不离其中";
 
-Assert.assertTrue(ZhWordCheckers.isCorrect(right));
-Assert.assertFalse(ZhWordCheckers.isCorrect(error));
+Assert.assertTrue(WordCheckerHelper.isCorrect(right));
+Assert.assertFalse(WordCheckerHelper.isCorrect(error));
 ```
 
-## 返回最佳匹配结果
+### 返回最佳匹配结果
 
 ```java
 final String right = "正确";
 final String error = "万变不离其中";
 
-Assert.assertEquals("正确", ZhWordCheckers.correct(right));
-Assert.assertEquals("万变不离其宗", ZhWordCheckers.correct(error));
+Assert.assertEquals("正确", WordCheckerHelper.correct(right));
+Assert.assertEquals("万变不离其宗", WordCheckerHelper.correct(error));
 ```
 
-## 默认纠正匹配列表
+### 默认纠正匹配列表
 
 ```java
 final String word = "万变不离其中";
 
-List<String> stringList = ZhWordCheckers.correctList(word);
+List<String> stringList = WordCheckerHelper.correctList(word);
 Assert.assertEquals("[万变不离其宗]", stringList.toString());
 ```
 
-## 指定纠正匹配列表大小
+### 指定纠正匹配列表大小
 
 ```java
 final String word = "万变不离其中";
 final int limit = 1;
 
-List<String> stringList = ZhWordCheckers.correctList(word, limit);
+List<String> stringList = WordCheckerHelper.correctList(word, limit);
 Assert.assertEquals("[万变不离其宗]", stringList.toString());
 ```
 
-# 长文本中英文混合
+## 长文本中英文混合
 
-## 情景
+### 情景
 
 实际拼写纠正的话，最佳的使用体验是用户输入一个长文本，并且可能是中英文混合的。
 
 然后实现上述对应的功能。
-
-## 核心方法
-
-`WordCheckers` 工具类提供了长文本中英文混合的自动纠正功能。
-
-| 功能 | 方法 | 参数 | 返回值 | 备注 |
-|:----|:----|:----|:---|:----|
-| 文本拼写是否正确 | isCorrect(string) | 待检测的文本 | boolean | 全部正确，才会返回 true |
-| 返回最佳纠正结果 | correct(string) | 待检测的单词 | String | 如果没有找到可以纠正的文本，则返回其本身 |
-| 判断文本拼写是否正确 | correctMap(string) | 待检测的单词 | `Map<String, List<String>>` | 返回所有匹配的纠正列表 |
-| 判断文本拼写是否正确 | correctMap(string, int limit) | 待检测的文本, 返回列表的大小 | 返回指定大小的的纠正列表 | 列表大小 <= limit |
 
 ### 拼写是否正确
 
@@ -225,7 +216,7 @@ Assert.assertEquals("{ =[ ], speling=[spelling, spewing], 你=[你], 好=[好], 
 ```java
 final String word = "stRing";
 
-Assert.assertTrue(EnWordCheckers.isCorrect(word));
+Assert.assertTrue(WordCheckerHelper.isCorrect(word));
 ```
 
 ## 全角半角
@@ -235,7 +226,7 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word));
 ```java
 final String word = "stｒing";
 
-Assert.assertTrue(EnWordCheckers.isCorrect(word));
+Assert.assertTrue(WordCheckerHelper.isCorrect(word));
 ```
 
 # 自定义英文词库
@@ -267,8 +258,8 @@ my-long-long-define-word-two
 final String word = "my-long-long-define-word";
 final String word2 = "my-long-long-define-word-two";
 
-Assert.assertTrue(EnWordCheckers.isCorrect(word));
-Assert.assertTrue(EnWordCheckers.isCorrect(word2));
+Assert.assertTrue(WordCheckerHelper.isCorrect(word));
+Assert.assertTrue(WordCheckerHelper.isCorrect(word2));
 ```
 
 # 自定义中文词库
@@ -287,7 +278,7 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word2));
 
 # 后期 Road-Map
 
-- 支持英文分词，处理整个英文句子
+- [x] 支持英文分词，处理整个英文句子
 
 - 支持中文分词拼写检测
 
@@ -298,13 +289,3 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word2));
 # 技术鸣谢
 
 [Words](https://github.com/atebits/Words) 提供的原始英语单词数据。
-
-# ROAD-MAP
-
-- [x] 支持长文本的自动纠正能力
-
-- [x] 中英文混合的纠正
-
-- [x] 指定是否忽略大小写
-
-- [x] 指定是否忽略全角半角

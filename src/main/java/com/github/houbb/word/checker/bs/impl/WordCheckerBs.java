@@ -2,12 +2,12 @@ package com.github.houbb.word.checker.bs.impl;
 
 import com.github.houbb.heaven.support.instance.impl.Instances;
 import com.github.houbb.heaven.util.lang.StringUtil;
+import com.github.houbb.heaven.util.util.MapUtil;
 import com.github.houbb.nlp.common.segment.ICommonSegment;
 import com.github.houbb.word.checker.bs.IWordCheckerBs;
+import com.github.houbb.word.checker.constant.WordCheckerConst;
 import com.github.houbb.word.checker.core.IWordChecker;
-import com.github.houbb.word.checker.core.IWordCheckerContext;
 import com.github.houbb.word.checker.core.impl.EnWordChecker;
-import com.github.houbb.word.checker.core.impl.WordCheckerContext;
 import com.github.houbb.word.checker.core.impl.ZhWordChecker;
 import com.github.houbb.word.checker.support.data.IWordData;
 import com.github.houbb.word.checker.support.data.chinese.ChineseWordDatas;
@@ -43,28 +43,58 @@ public final class WordCheckerBs implements IWordCheckerBs {
     private IWordData enWordData = EnglishWordDatas.mixed();
 
     /**
+     * 英文单词格式化
+     * @since 0.0.8
+     */
+    private IWordFormat enWordFormat = WordFormats.defaults();
+
+    /**
+     * 单词拼写实现类
+     * @since 0.0.3
+     */
+    private final IWordChecker enWordChecker = EnWordChecker.getInstance();
+
+    /**
+     * 英文最大的编辑距离
+     * @since 1.1.0
+     */
+    private int enMaxEditDistance = WordCheckerConst.DEFAULT_MAX_EDIT_DISTANCE;
+
+    /**
+     * 单词拼写实现类
+     * @since 0.0.5
+     */
+    private final IWordChecker zhWordChecker = Instances.singleton(ZhWordChecker.class);
+
+    /**
      * 中文单词数据信息
      * @since 0.0.8
      */
     private IWordData zhWordData = ChineseWordDatas.mixed();
 
     /**
-     * 单词格式化
-     * @since 0.0.8
+     * 中文最大的编辑距离
+     * @since 1.1.0
      */
-    private IWordFormat wordFormat = WordFormats.defaults();
+    private int zhMaxEditDistance = WordCheckerConst.DEFAULT_MAX_EDIT_DISTANCE;
 
     /**
-     * 单词拼写实现类
-     * @since 0.0.3
+     * 中文单词格式化
+     * @since 1.1.0
      */
-    private IWordChecker enWordChecker = EnWordChecker.getInstance();
+    private IWordFormat zhWordFormat = WordFormats.defaults();
 
     /**
-     * 单词拼写实现类
-     * @since 0.0.5
+     * 英文引导类实现
+     * @since 1.1.0
      */
-    private IWordChecker zhWordChecker = Instances.singleton(ZhWordChecker.class);
+    private SingleWordCheckerBs enWordCheckerBs = null;
+
+    /**
+     * 中文引导类实现
+     * @since 1.1.0
+     */
+    private SingleWordCheckerBs zhWordCheckerBs = null;
 
     /**
      * 创建新的实例
@@ -73,6 +103,29 @@ public final class WordCheckerBs implements IWordCheckerBs {
      */
     public static WordCheckerBs newInstance() {
         return new WordCheckerBs();
+    }
+
+    /**
+     * 初始化
+     * @since 1.1.0
+     */
+    public WordCheckerBs init() {
+        enWordCheckerBs = SingleWordCheckerBs.newInstance()
+                .wordFormat(enWordFormat)
+                .maxEditDistance(enMaxEditDistance)
+                .wordChecker(enWordChecker)
+                .wordData(enWordData)
+                .init();
+
+
+        zhWordCheckerBs = SingleWordCheckerBs.newInstance()
+                .wordFormat(zhWordFormat)
+                .maxEditDistance(zhMaxEditDistance)
+                .wordChecker(zhWordChecker)
+                .wordData(zhWordData)
+                .init();
+
+        return this;
     }
 
     public WordCheckerBs commonSegment(ICommonSegment commonSegment) {
@@ -90,44 +143,46 @@ public final class WordCheckerBs implements IWordCheckerBs {
         return this;
     }
 
-    public WordCheckerBs wordFormat(IWordFormat wordFormat) {
-        this.wordFormat = wordFormat;
+    public WordCheckerBs enWordFormat(IWordFormat enWordFormat) {
+        this.enWordFormat = enWordFormat;
         return this;
     }
 
-    public WordCheckerBs enWordChecker(IWordChecker enWordChecker) {
-        this.enWordChecker = enWordChecker;
+    public WordCheckerBs enMaxEditDistance(int enMaxEditDistance) {
+        this.enMaxEditDistance = enMaxEditDistance;
         return this;
     }
 
-    public WordCheckerBs zhWordChecker(IWordChecker zhWordChecker) {
-        this.zhWordChecker = zhWordChecker;
+    public WordCheckerBs zhMaxEditDistance(int zhMaxEditDistance) {
+        this.zhMaxEditDistance = zhMaxEditDistance;
+        return this;
+    }
+
+    public WordCheckerBs zhWordFormat(IWordFormat zhWordFormat) {
+        this.zhWordFormat = zhWordFormat;
         return this;
     }
 
     @Override
     public boolean isCorrect(String text) {
-        if(StringUtil.isEnglish(text)) {
+        if(StringUtil.isEmpty(text)) {
             return true;
         }
 
         // 第一步执行分词
         List<String> segments = commonSegment.segment(text);
 
-        final IWordCheckerContext zhContext = buildChineseContext();
-        final IWordCheckerContext enContext = buildEnglishContext();
-
         // 全部为真，才认为是正确。
         for(String segment : segments) {
             // 如果是英文
             if(StringUtil.isEnglish(segment)) {
                 // 执行英文的判断
-                if(!enWordChecker.isCorrect(segment, enContext)) {
+                if(!enWordCheckerBs.isCorrect(segment)) {
                     return false;
                 }
             } else if(StringUtil.isChinese(segment)) {
                 // 如果是中文
-                if(!zhWordChecker.isCorrect(segment, zhContext)) {
+                if(!zhWordCheckerBs.isCorrect(segment)) {
                     return false;
                 }
             }
@@ -139,14 +194,11 @@ public final class WordCheckerBs implements IWordCheckerBs {
 
     @Override
     public String correct(String text) {
-        if(StringUtil.isEnglish(text)) {
+        if(StringUtil.isEmpty(text)) {
             return text;
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-
-        final IWordCheckerContext zhContext = buildChineseContext();
-        final IWordCheckerContext enContext = buildEnglishContext();
 
         // 第一步执行分词
         List<String> segments = commonSegment.segment(text);
@@ -154,10 +206,10 @@ public final class WordCheckerBs implements IWordCheckerBs {
         for(String segment : segments) {
             // 如果是英文
             if(StringUtil.isEnglish(segment)) {
-                String correct = enWordChecker.correct(segment, enContext);
+                String correct = enWordCheckerBs.correct(segment);
                 stringBuilder.append(correct);
             } else if(StringUtil.isChinese(segment)) {
-                String correct = zhWordChecker.correct(segment, zhContext);
+                String correct = zhWordCheckerBs.correct(segment);
                 stringBuilder.append(correct);
             } else {
                 // 其他忽略
@@ -170,12 +222,27 @@ public final class WordCheckerBs implements IWordCheckerBs {
 
     @Override
     public List<String> correctList(String text, int limit) {
-        throw new UnsupportedOperationException("长文本模式不支持，请使用 correctMap!");
+        Map<String, List<String>> map = correctMap(text, limit);
+
+        return getList(map);
     }
 
     @Override
     public List<String> correctList(String text) {
-        throw new UnsupportedOperationException("长文本模式不支持，请使用 correctMap!");
+        Map<String, List<String>> map = correctMap(text);
+
+        return getList(map);
+    }
+
+    private List<String> getList(Map<String, List<String>> map) {
+        if(MapUtil.isEmpty(map)) {
+            return Collections.emptyList();
+        }
+
+        for(Map.Entry<String, List<String>> entry: map.entrySet()) {
+            return entry.getValue();
+        }
+        return Collections.emptyList();
     }
 
     /**
@@ -190,9 +257,6 @@ public final class WordCheckerBs implements IWordCheckerBs {
             return Collections.emptyMap();
         }
 
-        final IWordCheckerContext zhContext = buildChineseContext();
-        final IWordCheckerContext enContext = buildEnglishContext();
-
         // 第一步执行分词
         List<String> segments = commonSegment.segment(text);
         Map<String, List<String>> maps = new HashMap<>();
@@ -200,9 +264,9 @@ public final class WordCheckerBs implements IWordCheckerBs {
             List<String> list = new ArrayList<>();
             // 如果是英文
             if(StringUtil.isEnglish(segment)) {
-                list = enWordChecker.correctList(segment, limit, enContext);
+                list = enWordCheckerBs.correctList(segment, limit);
             } else if(StringUtil.isChinese(segment)) {
-                list = zhWordChecker.correctList(segment, limit, zhContext);
+                list = zhWordCheckerBs.correctList(segment, limit);
             } else {
                 list.add(segment);
             }
@@ -221,28 +285,6 @@ public final class WordCheckerBs implements IWordCheckerBs {
      */
     public Map<String, List<String>> correctMap(String text) {
         return correctMap(text, Integer.MAX_VALUE);
-    }
-
-    /**
-     * 构建英文上下文
-     * @since 0.0.3
-     * @return 上下文
-     */
-    private IWordCheckerContext buildEnglishContext() {
-        WordCheckerContext context = new WordCheckerContext();
-        context.wordData(enWordData).wordFormat(wordFormat);
-        return context;
-    }
-
-    /**
-     * 构建中文上下文
-     * @since 0.0.3
-     * @return 上下文
-     */
-    private IWordCheckerContext buildChineseContext() {
-        WordCheckerContext context = new WordCheckerContext();
-        context.wordData(zhWordData).wordFormat(wordFormat);
-        return context;
     }
 
 }

@@ -27,6 +27,16 @@ public class WordCheckerContext implements IWordCheckerContext {
      */
     private IWordFormat wordFormat;
 
+    /**
+     * 最大编辑距离
+     * @since 1.1.0
+     */
+    private int maxEditDistance;
+
+    public static WordCheckerContext newInstance() {
+        return new WordCheckerContext();
+    }
+
     @Override
     public IWordData wordData() {
         return wordData;
@@ -47,4 +57,13 @@ public class WordCheckerContext implements IWordCheckerContext {
         return this;
     }
 
+    @Override
+    public int maxEditDistance() {
+        return maxEditDistance;
+    }
+
+    public WordCheckerContext maxEditDistance(int maxEditDistance) {
+        this.maxEditDistance = maxEditDistance;
+        return this;
+    }
 }

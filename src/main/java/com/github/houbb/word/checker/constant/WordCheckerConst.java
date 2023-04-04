@@ -43,4 +43,10 @@ public final class WordCheckerConst {
      */
     public static final int DEFAULT_EN_WORD_COUNT = 1;
 
+    /**
+     * 默认的最大编辑距离
+     * @since 1.1.0
+     */
+    public static final int DEFAULT_MAX_EDIT_DISTANCE = 1;
+
 }

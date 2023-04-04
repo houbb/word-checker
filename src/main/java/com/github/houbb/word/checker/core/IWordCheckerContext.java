@@ -28,4 +28,11 @@ public interface IWordCheckerContext {
      */
     IWordFormat wordFormat();
 
+    /**
+     * 最大编辑距离
+     * @return 结果
+     * @since 1.1.0
+     */
+    int maxEditDistance();
+
 }

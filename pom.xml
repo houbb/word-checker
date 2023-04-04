@@ -4,7 +4,7 @@
 
     <groupId>com.github.houbb</groupId>
     <artifactId>word-checker</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0-SNAPSHOT</version>
 
     <properties>
         <!--============================== All Plugins START ==============================-->
@@ -28,6 +28,7 @@
         <heaven.version>0.2.0</heaven.version>
         <!--inter-->
         <nlp-common.version>0.0.5</nlp-common.version>
+        <trie.version>1.1.0</trie.version>
 
         <!--============================== OTHER ==============================-->
         <junit.version>4.13.1</junit.version>

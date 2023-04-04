@@ -14,7 +14,7 @@ import java.util.List;
  * @author houbinbin
  * @since 0.0.5
  */
-public class ZhWordCheckersTest {
+public class ZhWordCheckerHelperTest {
 
     /**
      * 是否拼写正确
@@ -25,8 +25,8 @@ public class ZhWordCheckersTest {
         final String right = "正确";
         final String error = "万变不离其中";
 
-        Assert.assertTrue(ZhWordCheckers.isCorrect(right));
-        Assert.assertFalse(ZhWordCheckers.isCorrect(error));
+        Assert.assertTrue(WordCheckerHelper.isCorrect(right));
+        Assert.assertFalse(WordCheckerHelper.isCorrect(error));
     }
 
     /**
@@ -38,8 +38,8 @@ public class ZhWordCheckersTest {
         final String right = "正确";
         final String error = "万变不离其中";
         
-        Assert.assertEquals("正确", ZhWordCheckers.correct(right));
-        Assert.assertEquals("万变不离其宗", ZhWordCheckers.correct(error));
+        Assert.assertEquals("正确", WordCheckerHelper.correct(right));
+        Assert.assertEquals("万变不离其宗", WordCheckerHelper.correct(error));
     }
 
     /**
@@ -50,7 +50,7 @@ public class ZhWordCheckersTest {
     public void correctListTest() {
         final String word = "万变不离其中";
 
-        List<String> stringList = ZhWordCheckers.correctList(word);
+        List<String> stringList = WordCheckerHelper.correctList(word);
         Assert.assertEquals("[万变不离其宗]", stringList.toString());
     }
 
@@ -62,7 +62,7 @@ public class ZhWordCheckersTest {
     public void correctListWithLimitTest() {
         final String word = "万变不离其中";
         final int limit = 1;
-        List<String> stringList = ZhWordCheckers.correctList(word, limit);
+        List<String> stringList = WordCheckerHelper.correctList(word, limit);
         Assert.assertEquals("[万变不离其宗]", stringList.toString());
     }
 

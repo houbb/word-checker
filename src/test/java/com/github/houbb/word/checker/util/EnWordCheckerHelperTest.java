@@ -14,7 +14,7 @@ import java.util.List;
  * @author houbinbin
  * @since 0.0.3
  */
-public class EnWordCheckersTest {
+public class EnWordCheckerHelperTest {
 
     /**
      * 是否拼写正确
@@ -23,8 +23,8 @@ public class EnWordCheckersTest {
     public void isCorrectTest() {
         final String hello = "hello";
         final String speling = "speling";
-        Assert.assertTrue(EnWordCheckers.isCorrect(hello));
-        Assert.assertFalse(EnWordCheckers.isCorrect(speling));
+        Assert.assertTrue(WordCheckerHelper.isCorrect(hello));
+        Assert.assertFalse(WordCheckerHelper.isCorrect(speling));
     }
 
     /**
@@ -34,8 +34,8 @@ public class EnWordCheckersTest {
     public void correctTest() {
         final String hello = "hello";
         final String speling = "speling";
-        Assert.assertEquals("hello", EnWordCheckers.correct(hello));
-        Assert.assertEquals("spelling", EnWordCheckers.correct(speling));
+        Assert.assertEquals("hello", WordCheckerHelper.correct(hello));
+        Assert.assertEquals("spelling", WordCheckerHelper.correct(speling));
     }
 
     /**
@@ -45,7 +45,7 @@ public class EnWordCheckersTest {
     @Test
     public void correctListTest() {
         final String word = "goox";
-        List<String> stringList = EnWordCheckers.correctList(word);
+        List<String> stringList = WordCheckerHelper.correctList(word);
         Assert.assertEquals("[good, goo, goon, goof, gook, goop, goos, gox, goog, gool, goor]", stringList.toString());
     }
 
@@ -57,7 +57,7 @@ public class EnWordCheckersTest {
     public void correctListWithLimitTest() {
         final String word = "goox";
         final int limit = 2;
-        List<String> stringList = EnWordCheckers.correctList(word, limit);
+        List<String> stringList = WordCheckerHelper.correctList(word, limit);
         Assert.assertEquals("[good, goo]", stringList.toString());
     }
 
@@ -70,7 +70,7 @@ public class EnWordCheckersTest {
     public void correctListWithLimit2Test() {
         final String word = "speling";
         final int limit = 2;
-        List<String> stringList = EnWordCheckers.correctList(word, limit);
+        List<String> stringList = WordCheckerHelper.correctList(word, limit);
         Assert.assertEquals(2, stringList.size());
     }
 
@@ -82,7 +82,7 @@ public class EnWordCheckersTest {
     public void isCorrectFormatCaseTest() {
         final String word = "stRing";
 
-        Assert.assertTrue(EnWordCheckers.isCorrect(word));
+        Assert.assertTrue(WordCheckerHelper.isCorrect(word));
     }
 
     /**
@@ -93,7 +93,7 @@ public class EnWordCheckersTest {
     public void isCorrectFormatWidthTest() {
         final String word = "stｒing";
 
-        Assert.assertTrue(EnWordCheckers.isCorrect(word));
+        Assert.assertTrue(WordCheckerHelper.isCorrect(word));
     }
 
     /**
@@ -104,8 +104,8 @@ public class EnWordCheckersTest {
     public void defineWordDictTest() {
         final String word = "my-long-long-define-word";
         final String word2 = "my-long-long-define-word-two";
-        Assert.assertTrue(EnWordCheckers.isCorrect(word));
-        Assert.assertTrue(EnWordCheckers.isCorrect(word2));
+        Assert.assertTrue(WordCheckerHelper.isCorrect(word));
+        Assert.assertTrue(WordCheckerHelper.isCorrect(word2));
     }
 
 }
