@@ -2,7 +2,7 @@
 
 > [英文文档](README_EN.md)
 
-本项目用于单词拼写检查。支持英文单词拼写检测，和中文拼写检测。
+[word-checker](https://github.com/houbb/word-checker/) 本项目用于单词拼写检查。支持英文单词拼写检测，和中文拼写检测。
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.houbb/word-checker/badge.svg)](http://mvnrepository.com/artifact/com.github.houbb/word-checker)
 [![Build Status](https://www.travis-ci.org/houbb/word-checker.svg?branch=master)](https://www.travis-ci.org/houbb/word-checker?branch=master)
