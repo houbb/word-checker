@@ -334,3 +334,5 @@ Assert.assertTrue(EnWordCheckers.isCorrect(word2));
 # 拓展阅读
 
 [java 实现中英文拼写检查和错误纠正？](http://houbb.github.io/2018/08/11/nlp-chinese-word-checker)
+
+[一个提升英文单词拼写检测性能 1000 倍的算法？](https://houbb.github.io/2018/08/11/nlp-chinese-word-checker-02-1000x)
