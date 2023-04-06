@@ -65,7 +65,7 @@ Assert.assertEquals("spelling", WordCheckerHelper.correct(speling));
 
 核心 api 在 `WordCheckerHelper` 工具类下。
 
-`WordCheckers` 工具类提供了长文本中英文混合的自动纠正功能，当然也支持单个单词。
+`WordCheckerHelper` 工具类提供了长文本中英文混合的自动纠正功能，当然也支持单个单词。
 
 | 功能 | 方法                            | 参数 | 返回值                         | 备注                   |
 |:----|:------------------------------|:----|:----------------------------|:---------------------|
