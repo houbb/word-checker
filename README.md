@@ -4,6 +4,8 @@
 
 [word-checker](https://github.com/houbb/word-checker/) 本项目用于单词拼写检查。支持英文单词拼写检测，和中文拼写检测。
 
+附加编辑距离等常用算法。
+
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.houbb/word-checker/badge.svg)](http://mvnrepository.com/artifact/com.github.houbb/word-checker)
 [![Build Status](https://www.travis-ci.org/houbb/word-checker.svg?branch=master)](https://www.travis-ci.org/houbb/word-checker?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/houbb/word-checker/badge.svg?branch=master)](https://coveralls.io/github/houbb/word-checker?branch=master)
@@ -11,6 +13,12 @@
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/houbb/word-checker)
 
 # 特性说明
+
+### 编辑距离
+
+- 任意两个单词间的最短编辑距离
+
+- 任意两个单词间最短编辑距离推导过程
 
 ### 支持英文的单词纠错
 
@@ -48,8 +56,30 @@ Jdk 1.7+
 <dependency>
      <groupId>com.github.houbb</groupId>
      <artifactId>word-checker</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
+```
+
+## 编辑距离
+
+方法在工具类 `EditDistanceHelper`
+
+### 最短编辑距离
+
+`EditDistanceHelper.minDistance(source, target)` 任意两个单词间的最短编辑距离
+
+```java
+ Assert.assertEquals(3, EditDistanceHelper.minDistance("horse", "ros"));
+ Assert.assertEquals(5, EditDistanceHelper.minDistance("intention", "execution"));
+```
+
+### 最短编辑距离推导过程
+
+`EditDistanceHelper.minDistanceList(source, target)` 任意两个单词间的最短编辑距离推导过程
+
+```java
+Assert.assertEquals("[horse, hors, hos, ros]", EditDistanceHelper.minDistanceList("horse", "ros").toString());
+Assert.assertEquals("[intention, intenution, intecution, inecution, ixecution, execution]", EditDistanceHelper.minDistanceList("intention", "execution").toString());
 ```
 
 ## 测试案例
@@ -294,6 +324,22 @@ Assert.assertTrue(WordCheckerHelper.isCorrect(word2));
 [sensitive-word 敏感词](https://github.com/houbb/sensitive-word)
 
 
+# 相关博客
+
+[NLP 中文拼写检测实现思路](https://houbb.github.io/2020/01/20/nlp-chinese-spelling-correct)
+
+[NLP 中文拼写检测纠正算法整理](https://houbb.github.io/2020/01/20/nlp-chinese-spelling-correct-02)
+
+[NLP 英文拼写算法，如果提升 100W 倍的性能？](https://houbb.github.io/2020/01/20/nlp-chinese-spelling-correct-03-100w-faster)
+
+[NLP 中文拼写检测纠正 Paper](https://houbb.github.io/2020/01/20/nlp-chinese-spelling-correct-paper)
+
+[java 实现中英文拼写检查和错误纠正？可我只会写 CRUD 啊！](https://houbb.github.io/2020/01/20/nlp-chinese-word-checker)
+
+[一个提升英文单词拼写检测性能 1000 倍的算法？](https://houbb.github.io/2020/01/20/nlp-chinese-word-checker-02-1000x)
+
+[单词拼写纠正-03-leetcode edit-distance 72.力扣编辑距离](https://houbb.github.io/2020/01/20/nlp-chinese-word-checker-03-edit-distance-intro)
+
 # 后期 Road-Map
 
 - [x] 支持英文分词，处理整个英文句子
@@ -303,6 +349,8 @@ Assert.assertTrue(WordCheckerHelper.isCorrect(word2));
 - 引入中文纠错算法，同音字和形近字处理。
 
 - 支持中英文混合拼写检测
+
+- [ ] 其他常用的编辑距离算法
 
 # 技术鸣谢
 
